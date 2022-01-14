@@ -1,0 +1,313 @@
+(kicad_sch (version 20211123) (generator eeschema)
+
+  (uuid d0dfd7c1-401d-4f64-8463-f4c0813ac28f)
+
+  (paper "A4")
+
+  (lib_symbols
+  )
+
+
+  (sheet (at 48.26 25.4) (size 17.78 17.78) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-00005c66f70d)
+    (property "Sheet name" "Sheet1" (id 0) (at 48.26 24.6884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 48.26 43.7646 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 53.34 30.48) (size 17.78 17.78) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-00005c66f723)
+    (property "Sheet name" "Sheet2" (id 0) (at 53.34 29.7684 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 53.34 48.8446 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 58.42 35.56) (size 17.78 17.78) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-00005c66f730)
+    (property "Sheet name" "Sheet3" (id 0) (at 58.42 34.8484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 58.42 53.9246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 63.5 40.64) (size 17.78 17.78) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-00005c66f732)
+    (property "Sheet name" "Sheet4" (id 0) (at 63.5 39.9284 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 63.5 59.0046 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 68.58 45.72) (size 17.78 17.78) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-00005c66f753)
+    (property "Sheet name" "Sheet5" (id 0) (at 68.58 45.0084 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 68.58 64.0846 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 73.66 50.8) (size 17.78 17.78) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-00005c66f755)
+    (property "Sheet name" "Sheet6" (id 0) (at 73.66 50.0884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 73.66 69.1646 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 78.74 55.88) (size 17.78 17.78) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-00005c66f757)
+    (property "Sheet name" "Sheet7" (id 0) (at 78.74 55.1684 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 78.74 74.2446 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet (at 83.82 60.96) (size 17.78 17.78) (fields_autoplaced)
+    (stroke (width 0) (type solid) (color 0 0 0 0))
+    (fill (color 0 0 0 0.0000))
+    (uuid 00000000-0000-0000-0000-00005c66f759)
+    (property "Sheet name" "Sheet8" (id 0) (at 83.82 60.2484 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 83.82 79.3246 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+  )
+
+  (sheet_instances
+    (path "/" (page "1"))
+    (path "/00000000-0000-0000-0000-00005c66f70d" (page "2"))
+    (path "/00000000-0000-0000-0000-00005c66f723" (page "3"))
+    (path "/00000000-0000-0000-0000-00005c66f730" (page "4"))
+    (path "/00000000-0000-0000-0000-00005c66f732" (page "5"))
+    (path "/00000000-0000-0000-0000-00005c66f753" (page "6"))
+    (path "/00000000-0000-0000-0000-00005c66f755" (page "7"))
+    (path "/00000000-0000-0000-0000-00005c66f757" (page "8"))
+    (path "/00000000-0000-0000-0000-00005c66f759" (page "9"))
+  )
+
+  (symbol_instances
+    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f7b3"
+      (reference "R201") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f845"
+      (reference "R202") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f85d"
+      (reference "R203") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f87b"
+      (reference "R204") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f897"
+      (reference "R205") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f8d7"
+      (reference "R206") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f8fb"
+      (reference "R207") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f921"
+      (reference "R208") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f7b3"
+      (reference "R301") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f845"
+      (reference "R302") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f85d"
+      (reference "R303") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f87b"
+      (reference "R304") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f897"
+      (reference "R305") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f8d7"
+      (reference "R306") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f8fb"
+      (reference "R307") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f921"
+      (reference "R308") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f7b3"
+      (reference "R401") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f845"
+      (reference "R402") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f85d"
+      (reference "R403") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f87b"
+      (reference "R404") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f897"
+      (reference "R405") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f8d7"
+      (reference "R406") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f8fb"
+      (reference "R407") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f921"
+      (reference "R408") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f7b3"
+      (reference "R501") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f845"
+      (reference "R502") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f85d"
+      (reference "R503") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f87b"
+      (reference "R504") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f897"
+      (reference "R505") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f8d7"
+      (reference "R506") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f8fb"
+      (reference "R507") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f921"
+      (reference "R508") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f7b3"
+      (reference "R601") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f845"
+      (reference "R602") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f85d"
+      (reference "R603") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f87b"
+      (reference "R604") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f897"
+      (reference "R605") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f8d7"
+      (reference "R606") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f8fb"
+      (reference "R607") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f921"
+      (reference "R608") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f7b3"
+      (reference "R701") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f845"
+      (reference "R702") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f85d"
+      (reference "R703") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f87b"
+      (reference "R704") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f897"
+      (reference "R705") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f8d7"
+      (reference "R706") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f8fb"
+      (reference "R707") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f921"
+      (reference "R708") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f7b3"
+      (reference "R801") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f845"
+      (reference "R802") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f85d"
+      (reference "R803") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f87b"
+      (reference "R804") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f897"
+      (reference "R805") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f8d7"
+      (reference "R806") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f8fb"
+      (reference "R807") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f921"
+      (reference "R808") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f7b3"
+      (reference "R901") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f845"
+      (reference "R902") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f85d"
+      (reference "R903") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f87b"
+      (reference "R904") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f897"
+      (reference "R905") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f8d7"
+      (reference "R906") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f8fb"
+      (reference "R907") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f921"
+      (reference "R908") (unit 1) (value "1k") (footprint "Passives:R1206M")
+    )
+  )
+)
