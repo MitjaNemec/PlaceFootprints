@@ -348,7 +348,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
     def Run(self):
         # grab PCB editor frame
-        self.frame = wx.GetActiveWindow()
+        self.frame = wx.GetTopLevelParent(wx.GetActiveWindow())
 
         # load board
         board = pcbnew.GetBoard()
@@ -379,7 +379,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
         logger.info("Plugin executed with python version: " + repr(sys.version))
         logger.info("KiCad build version: " + str(pcbnew.GetBuildVersion()))
         logger.info("Plugin version: " + self.version)
-        logger.debug("Parent frame: " + repr(self.frame.GetTitle()))
+        logger.info("Frame repr: " + repr(self.frame))
 
         # check if there is exactly one footprints selected
         selected_footprints = [x.GetReference() for x in board.GetFootprints() if x.IsSelected()]
