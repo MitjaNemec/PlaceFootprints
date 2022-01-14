@@ -31,6 +31,7 @@ cp initial_dialog_GUI.py plugins
 cp place_by_reference_GUI.py plugins
 cp place_by_sheet_GUI.py plugins
 cp archive_3d_models.py plugins
+cp place_footprints.py plugins
 cp version.txt plugins
 mkdir resources
 cp place_footprints.png resources/icon.png
