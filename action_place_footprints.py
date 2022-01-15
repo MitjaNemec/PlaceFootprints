@@ -619,6 +619,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 logging.shutdown()
                 return
 
+            # get copy_text_items_checkbox
+            copy_text_items = dlg.cb_positions.IsChecked()
+
             # get list of footprints to place
             footprints_to_place_indices = dlg.list_footprints.GetSelections()
             footprints_to_place = natural_sort([sorted_footprints[i] for i in footprints_to_place_indices])
@@ -631,7 +634,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 else:
                     radius = float(dlg.val_x_mag.GetValue()) / 25.4
                 try:
-                    placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle)
+                    placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle, copy_text_items)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -659,7 +662,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_x = float(dlg.val_x_mag.GetValue()) / 25.4
                     step_y = float(dlg.val_y_angle.GetValue()) / 25.4
                 try:
-                    placer.place_linear(footprints_to_place, ref_fp_ref, step_x, step_y)
+                    placer.place_linear(footprints_to_place, ref_fp_ref, step_x, step_y, copy_text_items)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -689,7 +692,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_y = float(dlg.val_y_angle.GetValue()) / 25.4
                 nr_columns = int(dlg.val_columns.GetValue())
                 try:
-                    placer.place_matrix(footprints_to_place, ref_fp_ref, step_x, step_y, nr_columns)
+                    placer.place_matrix(footprints_to_place, ref_fp_ref, step_x, step_y, nr_columns, copy_text_items)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:

@@ -22,11 +22,9 @@
 import pcbnew
 from collections import namedtuple
 import os
-import sys
 import logging
 import itertools
 import math
-import re
 
 
 SCALE = 1000000.0
@@ -249,7 +247,7 @@ class Placer:
         pos_x = (right+left)/2
         return pos_x, pos_y
 
-    def place_circular(self, footprints_to_place, reference_footprint, radius, delta_angle):
+    def place_circular(self, footprints_to_place, reference_footprint, radius, delta_angle, copy_text_items):
         logger.info("Starting placing with circular layout")
         # get proper footprint list
         footprints = []
@@ -278,8 +276,10 @@ class Placer:
             first_mod_flipped = ref_fp.fp.IsFlipped()
             if fp.fp.IsFlipped() != first_mod_flipped:
                 fp.fp.Flip(fp.fp.GetPosition(), False)
+            if copy_text_items:
+                self.replicate_fp_text_items(ref_fp, fp)
 
-    def place_linear(self, footprints_to_place, reference_footprint, step_x, step_y):
+    def place_linear(self, footprints_to_place, reference_footprint, step_x, step_y, copy_text_items):
         logger.info("Starting placing with linear layout")
         # get proper footprint list
         footprints = []
@@ -304,19 +304,27 @@ class Placer:
             first_mod_flipped = ref_fp.fp.IsFlipped()
             if fp.fp.IsFlipped() != first_mod_flipped:
                 fp.fp.Flip(fp.fp.GetPosition(), False)
+            if copy_text_items:
+                self.replicate_fp_text_items(ref_fp, fp)
 
-    def place_matrix(self, footprints_to_place, reference_footprint, step_x, step_y, nr_columns):
+    def place_matrix(self, footprints_to_place, reference_footprint, step_x, step_y, nr_columns, copy_text_items):
         logger.info("Starting placing with matrix layout")
         # get proper footprint list
         footprints = []
         for fp in footprints_to_place:
             footprints.append(self.get_fp_by_ref(fp))
 
+        ref_fp = self.get_fp_by_ref(reference_footprint)
+
         # get first footprint position
         # TODO - take reference footprint position for start and build matrix around it (before, after)
-        # TODO - woudl have to split the for loop into two for loops
+        # TODO - would have to split the for loop into two for loops
         first_fp = footprints[0]
         first_fp_pos = first_fp.fp.GetPosition()
+
+        if copy_text_items:
+            self.replicate_fp_text_items(ref_fp, first_fp)
+
         for fp in footprints[1:]:
             index = footprints.index(fp)
             row = index // nr_columns
@@ -332,5 +340,66 @@ class Placer:
             first_mod_flipped = first_fp.fp.IsFlipped()
             if fp.fp.IsFlipped() != first_mod_flipped:
                 fp.fp.Flip(fp.fp.GetPosition(), False)
+            if copy_text_items:
+                self.replicate_fp_text_items(ref_fp, fp)
 
+    def replicate_fp_text_items(self, src_fp, dst_fp):
+        dst_anchor_fp_position = dst_fp.fp.GetPosition()
+        angle = src_fp.fp.GetOrientationDegrees() - dst_fp.fp.GetOrientationDegrees()
 
+        delta_pos = dst_anchor_fp_position - src_fp.fp.GetPosition()
+
+        src_fp_text_items = self.get_module_text_items(src_fp)
+        dst_fp_text_items = self.get_module_text_items(dst_fp)
+        # check if both modules (source and the one for replication) have the same number of text items
+        if len(src_fp_text_items) != len(dst_fp_text_items):
+            raise LookupError(
+                "Source module: " + src_fp + " has different number of text items (" + repr(len(src_fp_text_items))
+                + ")\nthan module for replication: " + dst_fp.ref + " (" + repr(len(dst_fp_text_items)) + ")")
+        # replicate each text item
+        for src_text in src_fp_text_items:
+            if src_text.IsKeepUpright() and angle != 0.0:
+                logger.info("Text of: " + src_fp.ref +
+                            " has property \"Keep upright\" rotation might not look as intended")
+
+            index = src_fp_text_items.index(src_text)
+            src_text_position = src_text.GetPosition() + delta_pos
+
+            new_position = rotate_around_point(src_text_position, dst_anchor_fp_position, angle)
+
+            # convert to tuple of integers
+            new_position = [int(x) for x in new_position]
+            dst_fp_text_items[index].SetPosition(pcbnew.wxPoint(*new_position))
+
+            # set layer
+            dst_fp_text_items[index].SetLayer(src_text.GetLayer())
+            # set orientation
+            dst_fp_text_items[index].SetTextAngle(src_text.GetTextAngle())
+            # thickness
+            dst_fp_text_items[index].SetTextThickness(src_text.GetTextThickness())
+            # width
+            dst_fp_text_items[index].SetTextWidth(src_text.GetTextWidth())
+            # height
+            dst_fp_text_items[index].SetTextHeight(src_text.GetTextHeight())
+            # rest of the parameters
+            # TODO check SetEffects method, might be better
+            dst_fp_text_items[index].SetItalic(src_text.IsItalic())
+            dst_fp_text_items[index].SetBold(src_text.IsBold())
+            dst_fp_text_items[index].SetMirrored(src_text.IsMirrored())
+            dst_fp_text_items[index].SetMultilineAllowed(src_text.IsMultilineAllowed())
+            dst_fp_text_items[index].SetHorizJustify(src_text.GetHorizJustify())
+            dst_fp_text_items[index].SetVertJustify(src_text.GetVertJustify())
+            dst_fp_text_items[index].SetKeepUpright(src_text.IsKeepUpright())
+            # set visibility
+            dst_fp_text_items[index].SetVisible(src_text.IsVisible())
+
+    @staticmethod
+    def get_module_text_items(footprint):
+        """ get all text item belonging to a modules """
+        list_of_items = [footprint.fp.Reference(), footprint.fp.Value()]
+
+        footprint_items = footprint.fp.GraphicalItems()
+        for item in footprint_items:
+            if type(item) is pcbnew.FP_TEXT:
+                list_of_items.append(item)
+        return list_of_items

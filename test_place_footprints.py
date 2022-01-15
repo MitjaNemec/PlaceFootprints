@@ -58,11 +58,11 @@ def test(in_file, out_file, ref_fp_ref, mode, layout):
         sorted_footprints = natural_sort(footprints)
 
     if layout == 'circular':
-        placer.place_circular(sorted_footprints, ref_fp_ref, 10.0, 30.0)
+        placer.place_circular(sorted_footprints, ref_fp_ref, 10.0, 45.0, True)
     if layout == 'linear':
-        placer.place_linear(sorted_footprints, ref_fp_ref, 5.0, 0.0)
+        placer.place_linear(sorted_footprints, ref_fp_ref, 5.0, 0.0, True)
     if layout == 'matrix':
-        placer.place_matrix(sorted_footprints, ref_fp_ref, 5.0, 5.0, 3)
+        placer.place_matrix(sorted_footprints, ref_fp_ref, 5.0, 5.0, 3, True)
 
     saved = pcbnew.SaveBoard(out_file, board)
     test_file = out_file.replace("temp", "test")
