@@ -20,7 +20,7 @@
         "footprints",
         "arrange"
     ],
-    "versions": [
+    "versions": [ 
         {
             "version": "1.0.0",
             "status": "stable",
@@ -34,8 +34,8 @@
                 "macos",
                 "windows"
             ]
-        }
-    {
+        },
+        {
             "version": "VERSION",
             "status": "stable",
             "kicad_version": "6.0",

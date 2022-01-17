@@ -457,11 +457,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             # get mode
             if dlg.com_arr.GetStringSelection() == u'Circular':
-                delta_angle = float(dlg.val_y_angle.GetValue())
+                delta_angle = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 if user_units == 'mm':
-                    radius = float(dlg.val_x_mag.GetValue())
+                    radius = float(dlg.val_x_mag.GetValue().replace(",", "."))
                 else:
-                    radius = float(dlg.val_x_mag.GetValue()) / 25.4
+                    radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
                 try:
                     placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle)
                     logger.info("Placing complete")
@@ -486,11 +486,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             if dlg.com_arr.GetStringSelection() == u'Linear':
                 if user_units == 'mm':
-                    step_x = float(dlg.val_x_mag.GetValue())
-                    step_y = float(dlg.val_y_angle.GetValue())
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue()) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue()) / 25.4
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 try:
                     placer.place_linear(sorted_footprints, ref_fp_ref, step_x, step_y)
                     logger.info("Placing complete")
@@ -515,12 +515,12 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             if dlg.com_arr.GetStringSelection() == u'Matrix':
                 if user_units == 'mm':
-                    step_x = float(dlg.val_x_mag.GetValue())
-                    step_y = float(dlg.val_y_angle.GetValue())
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue()) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue()) / 25.4
-                nr_columns = int(dlg.val_columns.GetValue())
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
+                nr_columns = int(dlg.val_columns.GetValue().replace(",", "."))
                 try:
                     placer.place_matrix(sorted_footprints, ref_fp_ref, step_x, step_y, nr_columns)
                     logger.info("Placing complete")
@@ -628,11 +628,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             logger.info('Footprints to place:\n' + repr(footprints_to_place))
             # get mode
             if dlg.com_arr.GetStringSelection() == u'Circular':
-                delta_angle = float(dlg.val_y_angle.GetValue())
+                delta_angle = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 if user_units == 'mm':
-                    radius = float(dlg.val_x_mag.GetValue())
+                    radius = float(dlg.val_x_mag.GetValue().replace(",", "."))
                 else:
-                    radius = float(dlg.val_x_mag.GetValue()) / 25.4
+                    radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
                 try:
                     placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle, copy_text_items)
                     logger.info("Placing complete")
@@ -656,11 +656,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             if dlg.com_arr.GetStringSelection() == u'Linear':
                 if user_units == 'mm':
-                    step_x = float(dlg.val_x_mag.GetValue())
-                    step_y = float(dlg.val_y_angle.GetValue())
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue()) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue()) / 25.4
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 try:
                     placer.place_linear(footprints_to_place, ref_fp_ref, step_x, step_y, copy_text_items)
                     logger.info("Placing complete")
@@ -685,11 +685,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             if dlg.com_arr.GetStringSelection() == u'Matrix':
                 if user_units == 'mm':
-                    step_x = float(dlg.val_x_mag.GetValue())
-                    step_y = float(dlg.val_y_angle.GetValue())
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue()) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue()) / 25.4
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 nr_columns = int(dlg.val_columns.GetValue())
                 try:
                     placer.place_matrix(footprints_to_place, ref_fp_ref, step_x, step_y, nr_columns, copy_text_items)
