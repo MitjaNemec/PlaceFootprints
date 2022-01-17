@@ -21,7 +21,7 @@
         "arrange"
     ],
     "versions": [
-    {
+        {
             "version": "1.0.0",
             "status": "stable",
             "kicad_version": "6.0",
@@ -34,7 +34,7 @@
                 "macos",
                 "windows"
             ]
-        },
+        }
     {
             "version": "VERSION",
             "status": "stable",
