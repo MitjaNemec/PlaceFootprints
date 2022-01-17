@@ -13,15 +13,15 @@ inkscape place_footprints_light.svg -w 64 -h 64 -o place_footprints.png
 # grab version and parse it into metadata.json
 cp metadata_source.json metadata_package.json
 version=`cat version.txt`
-sed -i -e "s/VERSION/$version/g" metadata_package.json
 # remove all but the latest version in package metadata
-# TODO
+python parse_metadata_json.py
+sed -i -e "s/VERSION/$version/g" metadata.json
 
 # cut the download, sha and size fields
-sed -i '/download_url/d' metadata_package.json
-sed -i '/download_size/d' metadata_package.json
-sed -i '/install_size/d' metadata_package.json
-sed -i '/download_sha256/d' metadata_package.json
+sed -i '/download_url/d' metadata.json
+sed -i '/download_size/d' metadata.json
+sed -i '/install_size/d' metadata.json
+sed -i '/download_sha256/d' metadata.json
 
 # prepare the package
 mkdir plugins
@@ -36,7 +36,6 @@ cp place_footprints.py plugins
 cp version.txt plugins
 mkdir resources
 cp place_footprints.png resources/icon.png
-cp metadata_package.json metadata.json
 
 zip -r PlaceFootprints-$version-pcm.zip plugins resources metadata.json
 
