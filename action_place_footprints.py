@@ -30,6 +30,7 @@ from .place_by_reference_GUI import PlaceByReferenceGUI
 from .place_by_sheet_GUI import PlaceBySheetGUI
 from .place_footprints import Placer
 import re
+import locale
 
 
 def fp_set_highlight(fp):
@@ -457,11 +458,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             # get mode
             if dlg.com_arr.GetStringSelection() == u'Circular':
-                delta_angle = float(dlg.val_y_angle.GetValue())
+                delta_angle = locale.atof(dlg.val_y_angle.GetValue())
                 if user_units == 'mm':
-                    radius = float(dlg.val_x_mag.GetValue())
+                    radius = locale.atof(dlg.val_x_mag.GetValue())
                 else:
-                    radius = float(dlg.val_x_mag.GetValue()) / 25.4
+                    radius = locale.atof(dlg.val_x_mag.GetValue()) / 25.4
                 try:
                     placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle)
                     logger.info("Placing complete")
@@ -486,11 +487,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             if dlg.com_arr.GetStringSelection() == u'Linear':
                 if user_units == 'mm':
-                    step_x = float(dlg.val_x_mag.GetValue())
-                    step_y = float(dlg.val_y_angle.GetValue())
+                    step_x = locale.atof(dlg.val_x_mag.GetValue())
+                    step_y = locale.atof(dlg.val_y_angle.GetValue())
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue()) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue()) / 25.4
+                    step_x = locale.atof(dlg.val_x_mag.GetValue()) / 25.4
+                    step_y = locale.atof(dlg.val_y_angle.GetValue()) / 25.4
                 try:
                     placer.place_linear(sorted_footprints, ref_fp_ref, step_x, step_y)
                     logger.info("Placing complete")
@@ -515,11 +516,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             if dlg.com_arr.GetStringSelection() == u'Matrix':
                 if user_units == 'mm':
-                    step_x = float(dlg.val_x_mag.GetValue())
-                    step_y = float(dlg.val_y_angle.GetValue())
+                    step_x = locale.atof(dlg.val_x_mag.GetValue())
+                    step_y = locale.atof(dlg.val_y_angle.GetValue())
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue()) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue()) / 25.4
+                    step_x = locale.atof(dlg.val_x_mag.GetValue()) / 25.4
+                    step_y = locale.atof(dlg.val_y_angle.GetValue()) / 25.4
                 nr_columns = int(dlg.val_columns.GetValue())
                 try:
                     placer.place_matrix(sorted_footprints, ref_fp_ref, step_x, step_y, nr_columns)
@@ -628,11 +629,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             logger.info('Footprints to place:\n' + repr(footprints_to_place))
             # get mode
             if dlg.com_arr.GetStringSelection() == u'Circular':
-                delta_angle = float(dlg.val_y_angle.GetValue())
+                delta_angle = locale.atof(dlg.val_y_angle.GetValue())
                 if user_units == 'mm':
-                    radius = float(dlg.val_x_mag.GetValue())
+                    radius = locale.atof(dlg.val_x_mag.GetValue())
                 else:
-                    radius = float(dlg.val_x_mag.GetValue()) / 25.4
+                    radius = locale.atof(dlg.val_x_mag.GetValue()) / 25.4
                 try:
                     placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle, copy_text_items)
                     logger.info("Placing complete")
@@ -656,11 +657,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             if dlg.com_arr.GetStringSelection() == u'Linear':
                 if user_units == 'mm':
-                    step_x = float(dlg.val_x_mag.GetValue())
-                    step_y = float(dlg.val_y_angle.GetValue())
+                    step_x = locale.atof(dlg.val_x_mag.GetValue())
+                    step_y = locale.atof(dlg.val_y_angle.GetValue())
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue()) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue()) / 25.4
+                    step_x = locale.atof(dlg.val_x_mag.GetValue()) / 25.4
+                    step_y = locale.atof(dlg.val_y_angle.GetValue()) / 25.4
                 try:
                     placer.place_linear(footprints_to_place, ref_fp_ref, step_x, step_y, copy_text_items)
                     logger.info("Placing complete")
@@ -685,11 +686,11 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             if dlg.com_arr.GetStringSelection() == u'Matrix':
                 if user_units == 'mm':
-                    step_x = float(dlg.val_x_mag.GetValue())
-                    step_y = float(dlg.val_y_angle.GetValue())
+                    step_x = locale.atof(dlg.val_x_mag.GetValue())
+                    step_y = locale.atof(dlg.val_y_angle.GetValue())
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue()) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue()) / 25.4
+                    step_x = locale.atof(dlg.val_x_mag.GetValue()) / 25.4
+                    step_y = locale.atof(dlg.val_y_angle.GetValue()) / 25.4
                 nr_columns = int(dlg.val_columns.GetValue())
                 try:
                     placer.place_matrix(footprints_to_place, ref_fp_ref, step_x, step_y, nr_columns, copy_text_items)
