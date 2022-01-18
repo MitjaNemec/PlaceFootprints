@@ -34,3 +34,11 @@
 /place_footprints_test_projects/place_footprints_test_sheet_circular.kicad_prl
 /place_footprints_test_projects/place_footprints_test_sheet_linear.kicad_prl
 /place_footprints_test_projects/place_footprints_test_sheet_matrix.kicad_prl
+metadata.json
+metadata_package.json
+place_footprints_test_projects/fp-lib-table
+place_footprints_test_projects/Library.pretty/
+place_footprints_test_projects/test_lib.pretty/
+*.zip
+place_footprints_test_projects/.directory
+.directory
