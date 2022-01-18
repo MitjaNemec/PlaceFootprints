@@ -1,8 +1,8 @@
 {
     "$schema": "https://go.kicad.org/pcm/schemas/v1",
-    "name": "PlaceFootprints",
-    "description": "Place Footprints",
-    "description_full": "Arrange sequentially numbered footprints or footprints from multiple hierachical sheets in linear, circular or matrix arrangement. This plugin works on footprints already present in the layout, so that layout and schematics stay in sync.\nThe placement of footprints from multiple hierarchical sheets works well together with ReplicateLayout plugin",
+    "name": "Place Footprints",
+    "description": "Arrange footprints on a line, circle or grid.",
+    "description_full": "Arrange sequentially numbered footprints or footprints from multiple hierarchical sheets in linear, circular or matrix arrangement. This plugin works on footprints already present in the layout, so that layout and schematics stay in sync.\nThe placement of footprints from multiple hierarchical sheets works well together with ReplicateLayout plugin",
     "identifier": "com.github.MitjaNemec.PlaceFootprints",
     "type": "plugin",
     "author": {
