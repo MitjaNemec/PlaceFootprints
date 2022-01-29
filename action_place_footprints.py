@@ -348,7 +348,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
     def Run(self):
         # grab PCB editor frame
-        self.frame = wx.GetTopLevelParent(wx.GetActiveWindow())
+        self.frame = wx.FindWindowById(pcbnew.ID_V_TOOLBAR).GetParent()
 
         # load board
         board = pcbnew.GetBoard()
@@ -424,6 +424,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
         # ask user which way to select other footprints (by increasing reference number or by ID)
         dlg_initial = InitialDialog(self.frame)
         dlg_initial.btn_sheet.SetDefault()
+        dlg_initial.CentreOnParent()
         ret_initial = dlg_initial.ShowModal()
         dlg_initial.Destroy()
 
@@ -432,6 +433,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             footprints_with_same_id = placer.get_list_of_footprints_with_same_id(ref_fp.fp_id)
             # display dialog
             dlg = PlaceBySheetDialog(self.frame, placer, ref_fp, user_units)
+
+            # show the dialog
+            dlg.CentreOnParent()
             res = dlg.ShowModal()
 
             if res == wx.ID_CANCEL:
@@ -463,7 +467,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 else:
                     radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
                 try:
-                    placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle)
+                    placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle, True)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -492,7 +496,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 try:
-                    placer.place_linear(sorted_footprints, ref_fp_ref, step_x, step_y)
+                    placer.place_linear(sorted_footprints, ref_fp_ref, step_x, step_y, True)
                     logger.info("Placing complete")
                     logger.info("Sorted_footprints: " + repr(sorted_footprints))
                     logging.shutdown()
@@ -522,7 +526,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 nr_columns = int(dlg.val_columns.GetValue().replace(",", "."))
                 try:
-                    placer.place_matrix(sorted_footprints, ref_fp_ref, step_x, step_y, nr_columns)
+                    placer.place_matrix(sorted_footprints, ref_fp_ref, step_x, step_y, nr_columns, True)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -593,6 +597,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
             # create dialog
             dlg = PlaceByReferenceDialog(self.frame, placer, ref_fp, user_units)
+            
             dlg.list_footprints.AppendItems(sorted_footprints)
 
             # by default select all footprints on the list
@@ -607,6 +612,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             pcbnew.Refresh()
 
             # show dialog
+            dlg.CentreOnParent()
             res = dlg.ShowModal()
 
             if res == wx.ID_CANCEL:
