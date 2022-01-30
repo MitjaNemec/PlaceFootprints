@@ -267,15 +267,15 @@ class Placer:
         for fp in footprints:
             index = footprints.index(fp)
             delta_index = index - ref_fp_index
+
+            if fp.fp.IsFlipped() != ref_fp.fp.IsFlipped():
+                fp.fp.Flip(fp.fp.GetPosition(), False)
+
             new_position = rotate_around_point(ref_fp_pos, point_of_rotation, delta_index * delta_angle)
             new_position = [int(x) for x in new_position]
             fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
-
             fp.fp.SetOrientationDegrees(ref_fp.fp.GetOrientationDegrees()-delta_index*delta_angle)
 
-            first_mod_flipped = ref_fp.fp.IsFlipped()
-            if fp.fp.IsFlipped() != first_mod_flipped:
-                fp.fp.Flip(fp.fp.GetPosition(), False)
             if copy_text_items:
                 self.replicate_fp_text_items(ref_fp, fp)
 
@@ -295,15 +295,15 @@ class Placer:
         for fp in footprints:
             index = footprints.index(fp)
             delta_index = index-ref_fp_index
+
+            if fp.fp.IsFlipped() != ref_fp.fp.IsFlipped():
+                fp.fp.Flip(fp.fp.GetPosition(), False)
+
             new_position = (ref_fp_pos.x + delta_index*step_x*SCALE, ref_fp_pos.y + delta_index*step_y * SCALE)
             new_position = [int(x) for x in new_position]
             fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
-
             fp.fp.SetOrientationDegrees(ref_fp.fp.GetOrientationDegrees())
 
-            first_mod_flipped = ref_fp.fp.IsFlipped()
-            if fp.fp.IsFlipped() != first_mod_flipped:
-                fp.fp.Flip(fp.fp.GetPosition(), False)
             if copy_text_items:
                 self.replicate_fp_text_items(ref_fp, fp)
 
@@ -326,6 +326,9 @@ class Placer:
             self.replicate_fp_text_items(ref_fp, first_fp)
 
         for fp in footprints[1:]:
+            if fp.fp.IsFlipped() != first_fp.fp.IsFlipped():
+                fp.fp.Flip(fp.fp.GetPosition(), False)
+
             index = footprints.index(fp)
             row = index // nr_columns
             column = index - row * nr_columns
@@ -334,12 +337,8 @@ class Placer:
             new_position = (new_pos_x, new_pos_y)
             new_position = [int(x) for x in new_position]
             fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
-
             fp.fp.SetOrientationDegrees(first_fp.fp.GetOrientationDegrees())
 
-            first_mod_flipped = first_fp.fp.IsFlipped()
-            if fp.fp.IsFlipped() != first_mod_flipped:
-                fp.fp.Flip(fp.fp.GetPosition(), False)
             if copy_text_items:
                 self.replicate_fp_text_items(ref_fp, fp)
 

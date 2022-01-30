@@ -69,7 +69,7 @@ def test(in_file, out_file, ref_fp_ref, mode, layout):
 
     ret_val = compare_boards.compare_boards(out_file, test_file)
     # remove the temporaty board file
-    os.remove(out_file)
+    #os.remove(out_file)
 
     return ret_val
 
