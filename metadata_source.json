@@ -66,6 +66,21 @@
             ]
         },
         {
+            "version": "1.1.2",
+            "status": "stable",
+            "kicad_version": "6.0",
+            "kicad_version_max": "6.1",
+            "download_url": "https://github.com/MitjaNemec/PlaceFootprints/releases/download/1.1.2/PlaceFootprints-1.1.2-pcm.zip",
+            "download_sha256": "7d3c82721f1ab3cd02549f8368dfee6555bfd1ef504c8dfc2005bb56ab254cd1",
+            "download_size": 20322,
+            "install_size": 69555,
+            "platforms": [
+                "linux",
+                "macos",
+                "windows"
+            ]
+        },
+        {
             "version": "VERSION",
             "status": "stable",
             "kicad_version": "6.0",

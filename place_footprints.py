@@ -247,7 +247,8 @@ class Placer:
         pos_x = (right+left)/2
         return pos_x, pos_y
 
-    def place_circular(self, footprints_to_place, reference_footprint, radius, delta_angle, copy_text_items):
+    def place_circular(self, footprints_to_place, reference_footprint, radius, delta_angle, step, rotation,
+                       copy_text_items):
         logger.info("Starting placing with circular layout")
         # get proper footprint list
         footprints = []
@@ -274,12 +275,14 @@ class Placer:
             new_position = rotate_around_point(ref_fp_pos, point_of_rotation, delta_index * delta_angle)
             new_position = [int(x) for x in new_position]
             fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
-            fp.fp.SetOrientationDegrees(ref_fp.fp.GetOrientationDegrees()-delta_index*delta_angle)
+            footprint_angle = ref_fp.fp.GetOrientationDegrees()-delta_index*delta_angle
+            footprint_angle = footprint_angle + index // step * rotation
+            fp.fp.SetOrientationDegrees(footprint_angle)
 
             if copy_text_items:
                 self.replicate_fp_text_items(ref_fp, fp)
 
-    def place_linear(self, footprints_to_place, reference_footprint, step_x, step_y, copy_text_items):
+    def place_linear(self, footprints_to_place, reference_footprint, step_x, step_y, step, rotation, copy_text_items):
         logger.info("Starting placing with linear layout")
         # get proper footprint list
         footprints = []
@@ -302,12 +305,15 @@ class Placer:
             new_position = (ref_fp_pos.x + delta_index*step_x*SCALE, ref_fp_pos.y + delta_index*step_y * SCALE)
             new_position = [int(x) for x in new_position]
             fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
-            fp.fp.SetOrientationDegrees(ref_fp.fp.GetOrientationDegrees())
+            footprint_angle = ref_fp.fp.GetOrientationDegrees()
+            footprint_angle = footprint_angle + index // step * rotation
+            fp.fp.SetOrientationDegrees(footprint_angle)
 
             if copy_text_items:
                 self.replicate_fp_text_items(ref_fp, fp)
 
-    def place_matrix(self, footprints_to_place, reference_footprint, step_x, step_y, nr_columns, copy_text_items):
+    def place_matrix(self, footprints_to_place, reference_footprint, step_x, step_y, nr_columns, step, rotation,
+                     copy_text_items):
         logger.info("Starting placing with matrix layout")
         # get proper footprint list
         footprints = []
@@ -337,7 +343,9 @@ class Placer:
             new_position = (new_pos_x, new_pos_y)
             new_position = [int(x) for x in new_position]
             fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
-            fp.fp.SetOrientationDegrees(first_fp.fp.GetOrientationDegrees())
+            footprint_angle = ref_fp.fp.GetOrientationDegrees()
+            footprint_angle = footprint_angle + index // step * rotation
+            fp.fp.SetOrientationDegrees(footprint_angle)
 
             if copy_text_items:
                 self.replicate_fp_text_items(ref_fp, fp)

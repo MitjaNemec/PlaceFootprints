@@ -462,12 +462,14 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             # get mode
             if dlg.com_arr.GetStringSelection() == u'Circular':
                 delta_angle = float(dlg.val_y_angle.GetValue().replace(",", "."))
+                step = int(dlg.val_nth.GetValue())
+                rotation = float(dlg.val_rotate.GetValue().replace(",", "."))
                 if user_units == 'mm':
                     radius = float(dlg.val_x_mag.GetValue().replace(",", "."))
                 else:
                     radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
                 try:
-                    placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle, True)
+                    placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle, step, rotation, True)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -489,6 +491,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     return
 
             if dlg.com_arr.GetStringSelection() == u'Linear':
+                step = int(dlg.val_nth.GetValue())
+                rotation = float(dlg.val_rotate.GetValue().replace(",", "."))
                 if user_units == 'mm':
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
@@ -496,7 +500,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 try:
-                    placer.place_linear(sorted_footprints, ref_fp_ref, step_x, step_y, True)
+                    placer.place_linear(sorted_footprints, ref_fp_ref, step_x, step_y, step, rotation, True)
                     logger.info("Placing complete")
                     logger.info("Sorted_footprints: " + repr(sorted_footprints))
                     logging.shutdown()
@@ -518,6 +522,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     return
 
             if dlg.com_arr.GetStringSelection() == u'Matrix':
+                step = int(dlg.val_nth.GetValue())
+                rotation = float(dlg.val_rotate.GetValue().replace(",", "."))
                 if user_units == 'mm':
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
@@ -526,7 +532,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 nr_columns = int(dlg.val_columns.GetValue().replace(",", "."))
                 try:
-                    placer.place_matrix(sorted_footprints, ref_fp_ref, step_x, step_y, nr_columns, True)
+                    placer.place_matrix(sorted_footprints, ref_fp_ref, step_x, step_y, nr_columns, step, rotation, True)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -635,12 +641,15 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             # get mode
             if dlg.com_arr.GetStringSelection() == u'Circular':
                 delta_angle = float(dlg.val_y_angle.GetValue().replace(",", "."))
+                step = int(dlg.val_nth.GetValue())
+                rotation = float(dlg.val_rotate.GetValue().replace(",", "."))
                 if user_units == 'mm':
                     radius = float(dlg.val_x_mag.GetValue().replace(",", "."))
                 else:
                     radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
                 try:
-                    placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle, copy_text_items)
+                    placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle, step, rotation,
+                                          copy_text_items)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -661,6 +670,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     return
 
             if dlg.com_arr.GetStringSelection() == u'Linear':
+                step = int(dlg.val_nth.GetValue())
+                rotation = float(dlg.val_rotate.GetValue().replace(",", "."))
                 if user_units == 'mm':
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
@@ -668,7 +679,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 try:
-                    placer.place_linear(footprints_to_place, ref_fp_ref, step_x, step_y, copy_text_items)
+                    placer.place_linear(footprints_to_place, ref_fp_ref, step_x, step_y, step, rotation,
+                                        copy_text_items)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -690,6 +702,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     return
 
             if dlg.com_arr.GetStringSelection() == u'Matrix':
+                step = int(dlg.val_nth.GetValue())
+                rotation = float(dlg.val_rotate.GetValue().replace(",", "."))
                 if user_units == 'mm':
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
@@ -698,7 +712,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
                 nr_columns = int(dlg.val_columns.GetValue())
                 try:
-                    placer.place_matrix(footprints_to_place, ref_fp_ref, step_x, step_y, nr_columns, copy_text_items)
+                    placer.place_matrix(footprints_to_place, ref_fp_ref, step_x, step_y, nr_columns, step, rotation,
+                                        copy_text_items)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
