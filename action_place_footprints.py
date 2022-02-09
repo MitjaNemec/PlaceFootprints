@@ -348,7 +348,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
     def Run(self):
         # grab PCB editor frame
-        self.frame = wx.FindWindowById(pcbnew.ID_V_TOOLBAR).GetParent()
+        self.frame = wx.FindWindowByName("PcbFrame")
 
         # load board
         board = pcbnew.GetBoard()
@@ -424,7 +424,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
         # ask user which way to select other footprints (by increasing reference number or by ID)
         dlg_initial = InitialDialog(self.frame)
         dlg_initial.btn_sheet.SetDefault()
-        dlg_initial.CentreOnParent()
+        dlg_initial.CenterOnParent()
         ret_initial = dlg_initial.ShowModal()
         dlg_initial.Destroy()
 
@@ -435,7 +435,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             dlg = PlaceBySheetDialog(self.frame, placer, ref_fp, user_units)
 
             # show the dialog
-            dlg.CentreOnParent()
+            dlg.CenterOnParent()
             res = dlg.ShowModal()
 
             if res == wx.ID_CANCEL:
@@ -618,7 +618,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             pcbnew.Refresh()
 
             # show dialog
-            dlg.CentreOnParent()
+            dlg.CenterOnParent()
             res = dlg.ShowModal()
 
             if res == wx.ID_CANCEL:
