@@ -7,7 +7,14 @@ This plugin will place footprints with the following geometry:
 - in square matrix (Matrix)
 - around a circle (Circular)
 
-Apart from the pattern, there are two main ways to use the plugin. The components for placement are selected either by consecutive reference numbers or by the same ID on different hierarchical sheets.
+Apart from the pattern, there are two main ways to use the plugin. The components for placement are selected either by
+consecutive reference numbers or by the same ID on different hierarchical sheets.
+
+## Installation
+
+The preferred way to install the plugin is via KiCad's PCM (Plugin and Content Manager). Installation on non-networked
+can be done by downloading the latest [release](https://github.com/MitjaNemec/PlaceFootprints/releases) and installing
+in with PCM with `Install from file` option 
 
 ## Basic Use
 
@@ -33,6 +40,8 @@ If you want to place the footprints by same ID across hierarchical sheets of the
 - choose from which sheets you want the footprints to place from the next box down
 - select the arrangement (linear, matrix, circular)
 - select place dimension (step in x and y axes in linear and matrixc mode and angle step and radius in circlar mode)
+- optionally set additional rotation of every n-th footprint (useful in matrix layout if you need to rotate footprint
+  in every other row to ease layout)
 - run the plugin (click `Ok`)
 
 ## Visual Examples
@@ -54,8 +63,12 @@ Example of placing the LEDs from a single sheet in a circular placement
 
 ## Notes
 
-- As seen in the MOSFET example above, you don't need to pick the first item in a pattern but remember that all the other items will be referenced to it. It is usually easier to start by placing the first (lowest numbered / annotated) component first.
-- If you have a crash with the plugin, you should find a log file in your KiCad project's folder. Please submit it with any issues you open here.
-- There isn't currently an icon for this plugin on the toolbar for the PCB Editor. You need to access it from `Tools/External Plugins/Place Footprints`.
+- As seen in the MOSFET example above, you don't need to pick the first item in a pattern but remember that all the
+  other items will be referenced to it. It is usually easier to start by placing the first (lowest numbered / annotated)
+  component first.
+- If you have a crash with the plugin, you should find a log file in your KiCad project's folder. Please submit it with
+  any issues you open here.
+- There isn't currently an icon for this plugin on the toolbar for the PCB Editor. You need to access it from
+  `Tools/External Plugins/Place Footprints`.
 
 
