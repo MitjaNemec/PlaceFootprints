@@ -131,7 +131,7 @@ class Placer:
                 sheet_name = fp.GetProperty('Sheetname')
             except KeyError:
                 logger.info("Footprint " + fp.GetReference() +
-                            " does not have Sheetfile property, it will be considered for placement."
+                            " does not have Sheetfile property, it will not be considered for placement."
                             " Most likely it is only in layout")
                 continue
             # footprint is in the schematics and has Sheetfile property
@@ -143,17 +143,22 @@ class Placer:
                 raise LookupError("Footprint " + str(
                     fp.GetReference()) + " doesn't have Sheetfile and Sheetname properties. "
                                          "You need to update the layout from schematics")
-            # footprint is only in the layout
+            # footprint is on root level
             else:
                 logger.info("Footprint " + fp.GetReference() + " on root level")
 
-            # construct a list of all the footprints
-            mod_named_tuple = Footprint(fp=fp,
-                                        fp_id=self.get_footprint_id(fp),
-                                        sheet_id=self.get_sheet_path(fp)[0],
-                                        filename=self.get_sheet_path(fp)[1],
-                                        ref=fp.GetReference())
-            self.footprints.append(mod_named_tuple)
+        for fp in footprints:
+            try:
+                sheet_file = fp.GetProperty('Sheetfile')
+                # construct a list of all the footprints
+                mod_named_tuple = Footprint(fp=fp,
+                                            fp_id=self.get_footprint_id(fp),
+                                            sheet_id=self.get_sheet_path(fp)[0],
+                                            filename=self.get_sheet_path(fp)[1],
+                                            ref=fp.GetReference())
+                self.footprints.append(mod_named_tuple)
+            except KeyError:
+                pass
         pass
 
     def get_list_of_footprints_with_same_id(self, fp_id):
