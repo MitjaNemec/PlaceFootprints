@@ -126,9 +126,15 @@ class Placer:
         self.dict_of_sheets = {}
         for fp in footprints:
             sheet_id = self.get_sheet_id(fp)
-            sheet_file = fp.GetProperty('Sheetfile')
-            sheet_name = fp.GetProperty('Sheetname')
-            # footprint is in the schematics and has Sheetfile propertiy
+            try:
+                sheet_file = fp.GetProperty('Sheetfile')
+                sheet_name = fp.GetProperty('Sheetname')
+            except KeyError:
+                logger.info("Footprint " + fp.GetReference() +
+                            " does not have Sheetfile property, it will be considered for placement."
+                            " Most likely it is only in layout")
+                continue
+            # footprint is in the schematics and has Sheetfile property
             if sheet_file and sheet_id:
                 self.dict_of_sheets[sheet_id] = [sheet_name, sheet_file]
             # footprint is in the schematics but has no Sheetfile properties
@@ -139,10 +145,9 @@ class Placer:
                                          "You need to update the layout from schematics")
             # footprint is only in the layout
             else:
-                logger.debug("Footprint " + fp.GetReference() + " is only in layout")
+                logger.info("Footprint " + fp.GetReference() + " on root level")
 
-        # construct a list of all the footprints
-        for fp in footprints:
+            # construct a list of all the footprints
             mod_named_tuple = Footprint(fp=fp,
                                         fp_id=self.get_footprint_id(fp),
                                         sheet_id=self.get_sheet_path(fp)[0],
@@ -389,7 +394,6 @@ class Placer:
             # height
             dst_fp_text_items[index].SetTextHeight(src_text.GetTextHeight())
             # rest of the parameters
-            # TODO check SetEffects method, might be better
             dst_fp_text_items[index].SetItalic(src_text.IsItalic())
             dst_fp_text_items[index].SetBold(src_text.IsBold())
             dst_fp_text_items[index].SetMirrored(src_text.IsMirrored())

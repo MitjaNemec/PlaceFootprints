@@ -561,6 +561,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
 
         if ret_initial == InitialDialog.BY_REFERENCE:
             # split the reference footprint reference into designator and number
+            index = 0
             for i in range(len(ref_fp_ref)):
                 if not ref_fp_ref[i].isdigit():
                     index = i + 1
