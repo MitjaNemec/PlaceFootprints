@@ -80,8 +80,8 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
             self.lbl_x_mag.SetLabelText(u"step x (mm):")
             self.lbl_y_angle.SetLabelText(u"step y (mm):")
         else:
-            self.lbl_x_mag.SetLabelText(u"step x (in):")
-            self.lbl_y_angle.SetLabelText(u"step y (in):")
+            self.lbl_x_mag.SetLabelText(u"step x (mils):")
+            self.lbl_y_angle.SetLabelText(u"step y (mils):")
 
     def modify_dialog_for_linear(self):
         if self.user_units == 'mm':
@@ -90,8 +90,8 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
             self.val_x_mag.SetValue("%.3f" % self.width)
             self.val_y_angle.SetValue("%.3f" % self.height)
         else:
-            self.lbl_x_mag.SetLabelText(u"step x (in):")
-            self.lbl_y_angle.SetLabelText(u"step y (in):")
+            self.lbl_x_mag.SetLabelText(u"step x (mils):")
+            self.lbl_y_angle.SetLabelText(u"step y (mils):")
             self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
             self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
         self.lbl_columns.Hide()
@@ -104,8 +104,8 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
             self.val_x_mag.SetValue("%.3f" % self.width)
             self.val_y_angle.SetValue("%.3f" % self.height)
         else:
-            self.lbl_x_mag.SetLabelText(u"step x (in):")
-            self.lbl_y_angle.SetLabelText(u"step y (in):")
+            self.lbl_x_mag.SetLabelText(u"step x (mils):")
+            self.lbl_y_angle.SetLabelText(u"step y (mils):")
             self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
             self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
         self.lbl_columns.Show()
@@ -124,7 +124,7 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
             self.lbl_x_mag.SetLabelText(u"radius (mm):")
             self.val_x_mag.SetValue("%.3f" % radius)
         else:
-            self.lbl_x_mag.SetLabelText(u"radius (in):")
+            self.lbl_x_mag.SetLabelText(u"radius (mils):")
             self.val_x_mag.SetValue("%.3f" % (radius / 25.4))
         self.lbl_y_angle.SetLabelText(u"angle (deg):")
         self.val_y_angle.SetValue("%.3f" % angle)
@@ -222,8 +222,8 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
             self.val_x_mag.SetValue("%.3f" % self.width)
             self.val_y_angle.SetValue("%.3f" % self.height)
         else:
-            self.lbl_x_mag.SetLabelText(u"step x (in):")
-            self.lbl_y_angle.SetLabelText(u"step y (in):")
+            self.lbl_x_mag.SetLabelText(u"step x (mils):")
+            self.lbl_y_angle.SetLabelText(u"step y (mils):")
             self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
             self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
 
@@ -236,8 +236,8 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
                 self.val_x_mag.SetValue("%.3f" % self.width)
                 self.val_y_angle.SetValue("%.3f" % self.height)
             else:
-                self.lbl_x_mag.SetLabelText(u"step x (in):")
-                self.lbl_y_angle.SetLabelText(u"step y (in):")
+                self.lbl_x_mag.SetLabelText(u"step x (mils):")
+                self.lbl_y_angle.SetLabelText(u"step y (mils):")
                 self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
                 self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
             self.lbl_columns.Hide()
@@ -250,8 +250,8 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
                 self.val_x_mag.SetValue("%.3f" % self.width)
                 self.val_y_angle.SetValue("%.3f" % self.height)
             else:
-                self.lbl_x_mag.SetLabelText(u"step x (in):")
-                self.lbl_y_angle.SetLabelText(u"step y (in):")
+                self.lbl_x_mag.SetLabelText(u"step x (mils):")
+                self.lbl_y_angle.SetLabelText(u"step y (mils):")
                 self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
                 self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
             self.lbl_columns.Show()
@@ -269,7 +269,7 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
                 self.lbl_x_mag.SetLabelText(u"radius (mm):")
                 self.val_x_mag.SetValue("%.3f" % radius)
             else:
-                self.lbl_x_mag.SetLabelText(u"radius (in):")
+                self.lbl_x_mag.SetLabelText(u"radius (mils):")
                 self.val_x_mag.SetValue("%.3f" % (radius / 25.4))
             self.lbl_y_angle.SetLabelText(u"angle (deg):")
             self.val_y_angle.SetValue("%.3f" % angle)
@@ -467,7 +467,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 if user_units == 'mm':
                     radius = float(dlg.val_x_mag.GetValue().replace(",", "."))
                 else:
-                    radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
+                    radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
                 try:
                     placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle, step, rotation, True)
                     logger.info("Placing complete")
@@ -497,8 +497,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) * 25.4
                 try:
                     placer.place_linear(sorted_footprints, ref_fp_ref, step_x, step_y, step, rotation, True)
                     logger.info("Placing complete")
@@ -528,8 +528,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) * 25.4
                 nr_columns = int(dlg.val_columns.GetValue().replace(",", "."))
                 try:
                     placer.place_matrix(sorted_footprints, ref_fp_ref, step_x, step_y, nr_columns, step, rotation, True)
@@ -647,7 +647,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 if user_units == 'mm':
                     radius = float(dlg.val_x_mag.GetValue().replace(",", "."))
                 else:
-                    radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
+                    radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
                 try:
                     placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle, step, rotation,
                                           copy_text_items)
@@ -677,8 +677,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) * 25.4
                 try:
                     placer.place_linear(footprints_to_place, ref_fp_ref, step_x, step_y, step, rotation,
                                         copy_text_items)
@@ -709,8 +709,8 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", "."))
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", "."))
                 else:
-                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) / 25.4
-                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) / 25.4
+                    step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
+                    step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) * 25.4
                 nr_columns = int(dlg.val_columns.GetValue())
                 try:
                     placer.place_matrix(footprints_to_place, ref_fp_ref, step_x, step_y, nr_columns, step, rotation,
