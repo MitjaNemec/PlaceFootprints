@@ -9,6 +9,8 @@ inkscape place_footprints_light.svg -w 64 -h 64 -o place_footprints.png
 ~/WxFormBuilder/bin/wxformbuilder -g initial_dialog_GUI.fbp
 ~/WxFormBuilder/bin/wxformbuilder -g place_by_reference_GUI.fbp
 ~/WxFormBuilder/bin/wxformbuilder -g place_by_sheet_GUI.fbp
+~/WxFormBuilder/bin/wxformbuilder -g error_dialog_GUI.fbp
+
 
 # grab version and parse it into metadata.json
 cp metadata_source.json metadata_package.json
@@ -32,6 +34,7 @@ cp action_place_footprints.py plugins
 cp initial_dialog_GUI.py plugins
 cp place_by_reference_GUI.py plugins
 cp place_by_sheet_GUI.py plugins
+cp error_dialog_GUI.py plugins
 cp place_footprints.py plugins
 cp version.txt plugins
 mkdir resources

@@ -136,6 +136,8 @@ class Placer:
                 continue
             # footprint is in the schematics and has Sheetfile property
             if sheet_file and sheet_id:
+                # strip prepending "File: " if existing
+                sheet_file = sheet_file.replace('File:', '').strip()
                 self.dict_of_sheets[sheet_id] = [sheet_name, sheet_file]
             # footprint is in the schematics but has no Sheetfile properties
             elif sheet_id:

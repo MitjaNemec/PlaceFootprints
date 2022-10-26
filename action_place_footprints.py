@@ -28,6 +28,7 @@ import math
 from .initial_dialog_GUI import InitialDialogGUI
 from .place_by_reference_GUI import PlaceByReferenceGUI
 from .place_by_sheet_GUI import PlaceBySheetGUI
+from .error_dialog_GUI import ErrorDialogGUI
 from .place_footprints import Placer
 import re
 
@@ -56,6 +57,15 @@ def natural_sort(list_of_strings):
     return sorted(list_of_strings, key=alphanum_key)
 
 
+class ErrorDialog(ErrorDialogGUI):
+    def SetSizeHints(self, sz1, sz2):
+        # DO NOTHING
+        pass
+
+    def __init__(self, parent):
+        super(ErrorDialog, self).__init__(parent)
+
+
 class PlaceBySheetDialog(PlaceBySheetGUI):
     def SetSizeHints(self, sz1, sz2):
         # DO NOTHING
@@ -82,6 +92,12 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
         else:
             self.lbl_x_mag.SetLabelText(u"step x (mils):")
             self.lbl_y_angle.SetLabelText(u"step y (mils):")
+
+    def __del__(self):
+        # clear highlights
+        for ref in self.ref_list:
+            fp = self.placer.get_fp_by_ref(ref).fp
+            fp_clear_highlight(fp)
 
     def modify_dialog_for_linear(self):
         if self.user_units == 'mm':
@@ -410,11 +426,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             return
         except Exception as error:
             logger.exception("Fatal error when executing Place Footprints plugin")
-            caption = 'Place footprints'
-            message = str(error)
-            dlg = wx.MessageDialog(self.frame, message, caption, wx.OK | wx.ICON_ERROR)
-            dlg.ShowModal()
-            dlg.Destroy()
+            e_dlg = ErrorDialog(self.frame)
+            e_dlg.ShowModal()
+            e_dlg.Destroy()
             logging.shutdown()
             return
 
@@ -474,13 +488,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     logging.shutdown()
                 except Exception:
                     logger.exception("Fatal error when executing place footprints")
-                    caption = 'Place footprints'
-                    message = "Fatal error when executing place footprints.\n" \
-                              + "You can raise an issue on GiHub page.\n" \
-                              + "Please attach the place_footprints.log which you should find in the project folder."
-                    dlg = wx.MessageDialog(self.frame, message, caption, wx.OK | wx.ICON_ERROR)
-                    dlg.ShowModal()
-                    dlg.Destroy()
+                    e_dlg = ErrorDialog(self.frame)
+                    e_dlg.ShowModal()
+                    e_dlg.Destroy()
                     logging.shutdown()
 
                     # clear highlight all footprints by default
@@ -506,13 +516,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     logging.shutdown()
                 except Exception:
                     logger.exception("Fatal error when executing place footprints")
-                    caption = 'Place footprints'
-                    message = "Fatal error when executing place footprints.\n" \
-                              + "You can raise an issue on GiHub page.\n" \
-                              + "Please attach the place_footprints.log which you should find in the project folder."
-                    dlg = wx.MessageDialog(self.frame, message, caption, wx.OK | wx.ICON_ERROR)
-                    dlg.ShowModal()
-                    dlg.Destroy()
+                    e_dlg = ErrorDialog(self.frame)
+                    e_dlg.ShowModal()
+                    e_dlg.Destroy()
                     logging.shutdown()
                     # clear highlight all footprints by default
                     for fp_ref in sorted_footprints:
@@ -537,13 +543,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     logging.shutdown()
                 except Exception:
                     logger.exception("Fatal error when executing place footprints")
-                    caption = 'Place footprints'
-                    message = "Fatal error when executing place footprints.\n" \
-                              + "You can raise an issue on GiHub page.\n" \
-                              + "Please attach the place_footprints.log which you should find in the project folder."
-                    dlg = wx.MessageDialog(self.frame, message, caption, wx.OK | wx.ICON_ERROR)
-                    dlg.ShowModal()
-                    dlg.Destroy()
+                    e_dlg = ErrorDialog(self.frame)
+                    e_dlg.ShowModal()
+                    e_dlg.Destroy()
                     logging.shutdown()
                     # clear highlight all footprints by default
                     for fp_ref in sorted_footprints:
@@ -655,14 +657,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     logging.shutdown()
                 except Exception:
                     logger.exception("Fatal error when executing place footprints")
-                    caption = 'Place footprints'
-                    message = "Fatal error when executing place footprints.\n" \
-                              + "You can raise an issue on GiHub page.\n" \
-                              + "Please attach the place_footprints.log which you should find in the project folder."
-                    dlg = wx.MessageDialog(self.frame, message, caption, wx.OK | wx.ICON_ERROR)
-                    dlg.ShowModal()
-                    dlg.Destroy()
-                    logging.shutdown()
+                    e_dlg = ErrorDialog(self.frame)
+                    e_dlg.ShowModal()
+                    e_dlg.Destroy()()
                     # clear highlight all footprints by default
                     for fp_ref in sorted_footprints:
                         fp = placer.get_fp_by_ref(fp_ref).fp
@@ -686,13 +683,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     logging.shutdown()
                 except Exception:
                     logger.exception("Fatal error when executing place footprints")
-                    caption = 'Place footprints'
-                    message = "Fatal error when executing place footprints.\n" \
-                              + "You can raise an issue on GiHub page.\n" \
-                              + "Please attach the place_footprints.log which you should find in the project folder."
-                    dlg = wx.MessageDialog(self.frame, message, caption, wx.OK | wx.ICON_ERROR)
-                    dlg.ShowModal()
-                    dlg.Destroy()
+                    e_dlg = ErrorDialog(self.frame)
+                    e_dlg.ShowModal()
+                    e_dlg.Destroy()
                     logging.shutdown()
                     # clear highlight all footprints by default
                     for fp_ref in sorted_footprints:
@@ -719,13 +712,9 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                     logging.shutdown()
                 except Exception:
                     logger.exception("Fatal error when executing place footprints")
-                    caption = 'Place footprints'
-                    message = "Fatal error when executing place footprints.\n" \
-                              + "You can raise an issue on GiHub page.\n" \
-                              + "Please attach the place_footprints.log which you should find in the project folder."
-                    dlg = wx.MessageDialog(self.frame, message, caption, wx.OK | wx.ICON_ERROR)
-                    dlg.ShowModal()
-                    dlg.Destroy()
+                    e_dlg = ErrorDialog(self.frame)
+                    e_dlg.ShowModal()
+                    e_dlg.Destroy()
                     logging.shutdown()
                     # clear highlight all footprints by default
                     for fp_ref in sorted_footprints:
