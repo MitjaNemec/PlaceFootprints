@@ -114,7 +114,7 @@ class Placer:
     def __init__(self, board):
         self.board = board
         self.pcb_filename = os.path.abspath(board.GetFileName())
-        self.sch_filename = self.pcb_filename.replace(".kicad_pcb", ".sch")
+        self.sch_filename = self.pcb_filename.replace(".kicad_pcb", ".kicad_sch")
         self.project_folder = os.path.dirname(self.pcb_filename)
 
         # construct a list of footprints with all pertinent data
@@ -124,7 +124,14 @@ class Placer:
 
         # get dict_of_sheets from layout data only (through footprint Sheetfile and Sheetname properties)
         self.dict_of_sheets = {}
+        unique_sheet_ids = set()
         for fp in footprints:
+            # construct a set of unique sheets from footprint properties
+            path = fp.GetPath().AsString().upper().replace('00000000-0000-0000-0000-0000', '').split("/")
+            sheet_path = path[0:-1]
+            for x in sheet_path:
+                unique_sheet_ids.add(x)
+
             sheet_id = self.get_sheet_id(fp)
             try:
                 sheet_file = fp.GetProperty('Sheetfile')
@@ -137,7 +144,6 @@ class Placer:
             # footprint is in the schematics and has Sheetfile property
             if sheet_file and sheet_id:
                 # strip prepending "File: " if existing
-                sheet_file = sheet_file.replace('File:', '').strip()
                 self.dict_of_sheets[sheet_id] = [sheet_name, sheet_file]
             # footprint is in the schematics but has no Sheetfile properties
             elif sheet_id:
@@ -148,6 +154,16 @@ class Placer:
             # footprint is on root level
             else:
                 logger.info("Footprint " + fp.GetReference() + " on root level")
+
+        # catch corner cases with nested hierarchy, where some hierarchical pages don't have any footprints
+        unique_sheet_ids.remove("")
+        if len(unique_sheet_ids) > len(self.dict_of_sheets):
+            # open root schematics file and parse for other schematics files
+            # This might be prone to errors regarding path discovery
+            # thus it is used only in corner cases
+            schematic_found = {}
+            self.parse_schematic_files(self.sch_filename, schematic_found)
+            self.dict_of_sheets = schematic_found
 
         for fp in footprints:
             try:
@@ -162,6 +178,29 @@ class Placer:
             except KeyError:
                 pass
         pass
+
+    def parse_schematic_files(self, filename, dict_of_sheets):
+        with open(filename) as f:
+            contents = f.read().split("\n")
+        # find (sheet (at and then look in next few lines for new schematics file
+        for i in range(len(contents)):
+            line = contents[i]
+            if "(sheet (at" in line:
+                sheetname = ""
+                sheetfile = ""
+                sheet_id = ""
+                for j in range(i,i+10):
+                    if "(uuid " in contents[j]:
+                        sheet_id = contents[j].lstrip("(uuid ").rstrip(")")
+                    if "(property \"Sheet name\"" in contents[j]:
+                        sheetname = contents[j].lstrip("(property \"Sheet name\"").split()[0].replace("\"", "")
+                    if "(property \"Sheet file\"" in contents[j]:
+                        sheetfile = contents[j].lstrip("(property \"Sheet file\"").split()[0].replace("\"", "")
+                # here I should find all sheet data
+                dict_of_sheets[sheet_id] = [sheetname, sheetfile]
+                # open a newfound file and look for nested sheets
+                self.parse_schematic_files(sheetfile, dict_of_sheets)
+        return
 
     def get_list_of_footprints_with_same_id(self, fp_id):
         footprints_with_same_id = []

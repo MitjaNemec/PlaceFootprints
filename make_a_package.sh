@@ -6,17 +6,17 @@ inkscape place_footprints_light.svg -w 24 -h 24 -o place_footprints_light.png
 inkscape place_footprints_light.svg -w 64 -h 64 -o place_footprints.png
 
 # refresh the GUI design
-~/WxFormBuilder/bin/wxformbuilder -g initial_dialog_GUI.fbp
-~/WxFormBuilder/bin/wxformbuilder -g place_by_reference_GUI.fbp
-~/WxFormBuilder/bin/wxformbuilder -g place_by_sheet_GUI.fbp
-~/WxFormBuilder/bin/wxformbuilder -g error_dialog_GUI.fbp
+wxformbuilder -g initial_dialog_GUI.fbp
+wxformbuilder -g place_by_reference_GUI.fbp
+wxformbuilder -g place_by_sheet_GUI.fbp
+wxformbuilder -g error_dialog_GUI.fbp
 
 
 # grab version and parse it into metadata.json
 cp metadata_source.json metadata_package.json
 version=`cat version.txt`
 # remove all but the latest version in package metadata
-python parse_metadata_json.py
+python3 parse_metadata_json.py
 sed -i -e "s/VERSION/$version/g" metadata.json
 
 # cut the download, sha and size fields
