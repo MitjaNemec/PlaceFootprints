@@ -59,7 +59,7 @@ def test(in_file, out_file, ref_fp_ref, mode, layout):
 
     if layout == 'circular':
         placer.place_circular(sorted_footprints, ref_fp_ref,
-                              radius=10.0, delta_angle=45.0, step=3, rotation=15, copy_text_items=True)
+                              radius=10.0, delta_angle=45.0, delta_radius=+1.0, step=1, rotation=0, copy_text_items=True)
     if layout == 'linear':
         placer.place_linear(sorted_footprints, ref_fp_ref,
                             step_x=5.0, step_y=0.0, step=3, rotation=15, copy_text_items=True)

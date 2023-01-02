@@ -298,8 +298,8 @@ class Placer:
         pos_x = (right+left)/2
         return pos_x, pos_y
 
-    def place_circular(self, footprints_to_place, reference_footprint, radius, delta_angle, step, rotation,
-                       copy_text_items):
+    def place_circular(self, footprints_to_place, reference_footprint, radius, delta_angle, delta_radius,
+                       step, rotation, copy_text_items):
         logger.info("Starting placing with circular layout")
         # get proper footprint list
         footprints = []
@@ -323,7 +323,10 @@ class Placer:
             if fp.fp.IsFlipped() != ref_fp.fp.IsFlipped():
                 fp.fp.Flip(fp.fp.GetPosition(), False)
 
-            new_position = rotate_around_point(ref_fp_pos, point_of_rotation, delta_index * delta_angle)
+            circular_position = rotate_around_point(ref_fp_pos, point_of_rotation, delta_index * delta_angle)
+            # add delta radius for spirals
+            radial_delta = rotate_around_point([0.0, -pcbnew.Millimeter2iu(delta_radius*delta_index)], [0.0, 0.0], delta_index * delta_angle)
+            new_position = [sum(i) for i in zip(circular_position, radial_delta)]
             new_position = [int(x) for x in new_position]
             fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
             footprint_angle = ref_fp.fp.GetOrientationDegrees()-delta_index*delta_angle

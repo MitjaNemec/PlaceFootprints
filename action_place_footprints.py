@@ -92,6 +92,8 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
         else:
             self.lbl_x_mag.SetLabelText(u"step x (mils):")
             self.lbl_y_angle.SetLabelText(u"step y (mils):")
+        self.lbl_columns_rad_step.Disable()
+        self.val_columns_rad_step.Disable()
 
     def __del__(self):
         # clear highlights
@@ -110,8 +112,8 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
             self.lbl_y_angle.SetLabelText(u"step y (mils):")
             self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
             self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
-        self.lbl_columns.Hide()
-        self.val_columns.Hide()
+        self.lbl_columns_rad_step.Disable()
+        self.val_columns_rad_step.Disable()
 
     def modify_dialog_for_matrix(self):
         if self.user_units == 'mm':
@@ -124,12 +126,13 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
             self.lbl_y_angle.SetLabelText(u"step y (mils):")
             self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
             self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
-        self.lbl_columns.Show()
-        self.val_columns.Show()
+        self.lbl_columns_rad_step.SetLabelText(u"Nr.columns:")
+        self.lbl_columns_rad_step.Enable()
+        self.val_columns_rad_step.Enable()
         # presume square arrangement,
         # thus the number of columns should be equal to number of rows
-        self.val_columns.Clear()
-        self.val_columns.SetValue(str(int(round(math.sqrt(len(self.list_sheets.GetSelections()))))))
+        self.val_columns_rad_step.Clear()
+        self.val_columns_rad_step.SetValue(str(int(round(math.sqrt(len(self.list_sheets.GetSelections()))))))
 
     def modify_dialog_for_circular(self):
         number_of_all_sheets = len(self.list_sheets.GetSelections())
@@ -144,8 +147,13 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
             self.val_x_mag.SetValue("%.3f" % (radius / 25.4))
         self.lbl_y_angle.SetLabelText(u"angle (deg):")
         self.val_y_angle.SetValue("%.3f" % angle)
-        self.lbl_columns.Hide()
-        self.val_columns.Hide()
+        if self.user_units == 'mm':
+            self.lbl_columns_rad_step.SetLabelText(u"radial step (mm):")
+        else:
+            self.lbl_columns_rad_step.SetLabelText(u"radial step (mils):")
+        self.lbl_columns_rad_step.Enable()
+        self.val_columns_rad_step.SetValue("0.0")
+        self.val_columns_rad_step.Enable()
 
     def level_changed(self, event):
         index = self.list_levels.GetSelection()
@@ -242,6 +250,8 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
             self.lbl_y_angle.SetLabelText(u"step y (mils):")
             self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
             self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
+        self.lbl_columns_rad_step.Disable()
+        self.val_columns_rad_step.Disable()
 
     def arr_changed(self, event):
         # linear layout
@@ -256,8 +266,8 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
                 self.lbl_y_angle.SetLabelText(u"step y (mils):")
                 self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
                 self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
-            self.lbl_columns.Hide()
-            self.val_columns.Hide()
+            self.lbl_columns_rad_step.Disable()
+            self.val_columns_rad_step.Disable()
         # Matrix
         if self.com_arr.GetStringSelection() == u"Matrix":
             if self.user_units == 'mm':
@@ -270,11 +280,11 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
                 self.lbl_y_angle.SetLabelText(u"step y (mils):")
                 self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
                 self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
-            self.lbl_columns.Show()
-            self.val_columns.Show()
-
-            self.val_columns.Clear()
-            self.val_columns.SetValue(str(int(round(math.sqrt(len(self.list_footprints.GetSelections()))))))
+            self.lbl_columns_rad_step.SetLabelText(u"Nr.columns:")
+            self.lbl_columns_rad_step.Enable()
+            self.val_columns_rad_step.Enable()
+            self.val_columns_rad_step.Clear()
+            self.val_columns_rad_step.SetValue(str(int(round(math.sqrt(len(self.list_footprints.GetSelections()))))))
         # circular layout
         if self.com_arr.GetStringSelection() == u"Circular":
             number_of_all_footprints = len(self.list_footprints.GetSelections())
@@ -289,8 +299,13 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
                 self.val_x_mag.SetValue("%.3f" % (radius / 25.4))
             self.lbl_y_angle.SetLabelText(u"angle (deg):")
             self.val_y_angle.SetValue("%.3f" % angle)
-            self.lbl_columns.Hide()
-            self.val_columns.Hide()
+            if self.user_units == 'mm':
+                self.lbl_columns_rad_step.SetLabelText(u"radial step (mm):")
+            else:
+                self.lbl_columns_rad_step.SetLabelText(u"radial step (mils):")
+            self.lbl_columns_rad_step.Enable()
+            self.val_columns_rad_step.SetValue("0.0")
+            self.val_columns_rad_step.Enable()
         event.Skip()
 
     def on_selected(self, event):
@@ -480,10 +495,13 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 rotation = float(dlg.val_rotate.GetValue().replace(",", "."))
                 if user_units == 'mm':
                     radius = float(dlg.val_x_mag.GetValue().replace(",", "."))
+                    delta_radius = float(dlg.val_columns_rad_step.GetValue().replace(",", "."))
                 else:
                     radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
+                    delta_radius = float(dlg.val_columns_rad_step.GetValue().replace(",", ".")) * 25.4
                 try:
-                    placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle, step, rotation, True)
+                    placer.place_circular(sorted_footprints, ref_fp_ref, radius, delta_angle, delta_radius,
+                                          step, rotation, True)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -536,7 +554,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 else:
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) * 25.4
-                nr_columns = int(dlg.val_columns.GetValue().replace(",", "."))
+                nr_columns = int(dlg.val_columns_rad_step.GetValue().replace(",", "."))
                 try:
                     placer.place_matrix(sorted_footprints, ref_fp_ref, step_x, step_y, nr_columns, step, rotation, True)
                     logger.info("Placing complete")
@@ -648,11 +666,13 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 rotation = float(dlg.val_rotate.GetValue().replace(",", "."))
                 if user_units == 'mm':
                     radius = float(dlg.val_x_mag.GetValue().replace(",", "."))
+                    delta_radius = float(dlg.val_columns_rad_step.GetValue().replace(",", "."))
                 else:
                     radius = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
+                    delta_radius = float(dlg.val_columns_rad_step.GetValue().replace(",", ".")) * 25.4
                 try:
-                    placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle, step, rotation,
-                                          copy_text_items)
+                    placer.place_circular(footprints_to_place, ref_fp_ref, radius, delta_angle, delta_radius,
+                                          step, rotation, copy_text_items)
                     logger.info("Placing complete")
                     logging.shutdown()
                 except Exception:
@@ -704,7 +724,7 @@ class PlaceFootprints(pcbnew.ActionPlugin):
                 else:
                     step_x = float(dlg.val_x_mag.GetValue().replace(",", ".")) * 25.4
                     step_y = float(dlg.val_y_angle.GetValue().replace(",", ".")) * 25.4
-                nr_columns = int(dlg.val_columns.GetValue())
+                nr_columns = int(dlg.val_columns_rad_step.GetValue())
                 try:
                     placer.place_matrix(footprints_to_place, ref_fp_ref, step_x, step_y, nr_columns, step, rotation,
                                         copy_text_items)
