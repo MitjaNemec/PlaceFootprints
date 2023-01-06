@@ -243,13 +243,9 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
         if self.user_units == 'mm':
             self.lbl_x_mag.SetLabelText(u"step x (mm):")
             self.lbl_y_angle.SetLabelText(u"step y (mm):")
-            self.val_x_mag.SetValue("%.3f" % self.width)
-            self.val_y_angle.SetValue("%.3f" % self.height)
         else:
             self.lbl_x_mag.SetLabelText(u"step x (mils):")
             self.lbl_y_angle.SetLabelText(u"step y (mils):")
-            self.val_x_mag.SetValue("%.3f" % (self.width / 25.4))
-            self.val_y_angle.SetValue("%.3f" % (self.height / 25.4))
         self.lbl_columns_rad_step.Disable()
         self.val_columns_rad_step.Disable()
 
