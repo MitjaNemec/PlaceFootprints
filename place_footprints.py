@@ -189,13 +189,24 @@ class Placer:
                 sheetname = ""
                 sheetfile = ""
                 sheet_id = ""
-                for j in range(i,i+10):
+                sn_found = False
+                sf_found = False
+                for j in range(i, i + 10):
                     if "(uuid " in contents[j]:
-                        sheet_id = contents[j].lstrip("(uuid ").rstrip(")")
-                    if "(property \"Sheet name\"" in contents[j]:
-                        sheetname = contents[j].lstrip("(property \"Sheet name\"").split()[0].replace("\"", "")
-                    if "(property \"Sheet file\"" in contents[j]:
-                        sheetfile = contents[j].lstrip("(property \"Sheet file\"").split()[0].replace("\"", "")
+                        path = contents[j].replace("(uuid ", '').rstrip(")").upper().strip()
+                        sheet_id = path.replace('00000000-0000-0000-0000-0000', '')
+                    if "(property \"Sheet name\"" in contents[j] or "(property \"Sheetname\"" in contents[j]:
+                        sheetname = contents[j].replace("(property \"Sheet name\"", '').split("(")[0].replace("\"","").strip()
+                        sn_found = True
+                    if "(property \"Sheet file\"" in contents[j] or "(property \"Sheetfile\"" in contents[j]:
+                        sheetfile = contents[j].replace("(property \"Sheet file\"", '').split("(")[0].replace("\"","").strip()
+                        sf_found = True
+                # properly handle property not found
+                if not sn_found or not sf_found:
+                    logger.info(f'Did not found sheetfile and/or sheetname properties in the schematic file '
+                                f'in {filename} line:{str(i)}')
+                    raise LookupError(f'Did not found sheetfile and/or sheetname properties in the schematic file '
+                                      f'in {filename} line:{str(i)}. Unsupported schematics file format')
                 # here I should find all sheet data
                 dict_of_sheets[sheet_id] = [sheetname, sheetfile]
                 # open a newfound file and look for nested sheets
