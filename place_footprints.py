@@ -336,10 +336,10 @@ class Placer:
 
             circular_position = rotate_around_point(ref_fp_pos, point_of_rotation, delta_index * delta_angle)
             # add delta radius for spirals
-            radial_delta = rotate_around_point([0.0, -pcbnew.Millimeter2iu(delta_radius*delta_index)], [0.0, 0.0], delta_index * delta_angle)
+            radial_delta = rotate_around_point([0.0, -pcbnew.FromMM(delta_radius*delta_index)], [0.0, 0.0], delta_index * delta_angle)
             new_position = [sum(i) for i in zip(circular_position, radial_delta)]
             new_position = [int(x) for x in new_position]
-            fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
+            fp.fp.SetPosition(pcbnew.VECTOR2I(*new_position))
             footprint_angle = ref_fp.fp.GetOrientationDegrees()-delta_index*delta_angle
             footprint_angle = footprint_angle + index // step * rotation
             fp.fp.SetOrientationDegrees(footprint_angle)
@@ -369,7 +369,7 @@ class Placer:
 
             new_position = (ref_fp_pos.x + delta_index*step_x*SCALE, ref_fp_pos.y + delta_index*step_y * SCALE)
             new_position = [int(x) for x in new_position]
-            fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
+            fp.fp.SetPosition(pcbnew.VECTOR2I(*new_position))
             footprint_angle = ref_fp.fp.GetOrientationDegrees()
             footprint_angle = footprint_angle + index // step * rotation
             fp.fp.SetOrientationDegrees(footprint_angle)
@@ -407,7 +407,7 @@ class Placer:
             new_pos_y = first_fp_pos.y + row * step_y * SCALE
             new_position = (new_pos_x, new_pos_y)
             new_position = [int(x) for x in new_position]
-            fp.fp.SetPosition(pcbnew.wxPoint(*new_position))
+            fp.fp.SetPosition(pcbnew.VECTOR2I(*new_position))
             footprint_angle = ref_fp.fp.GetOrientationDegrees()
             footprint_angle = footprint_angle + index // step * rotation
             fp.fp.SetOrientationDegrees(footprint_angle)
@@ -441,7 +441,7 @@ class Placer:
 
             # convert to tuple of integers
             new_position = [int(x) for x in new_position]
-            dst_fp_text_items[index].SetPosition(pcbnew.wxPoint(*new_position))
+            dst_fp_text_items[index].SetPosition(pcbnew.VECTOR2I(*new_position))
 
             # set layer
             dst_fp_text_items[index].SetLayer(src_text.GetLayer())
