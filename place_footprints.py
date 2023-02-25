@@ -181,6 +181,7 @@ class Placer:
 
     def parse_schematic_files(self, filename, dict_of_sheets):
         with open(filename) as f:
+            logger.info(f'Parsing: {filename}')
             contents = f.read().split("\n")
         # find (sheet (at and then look in next few lines for new schematics file
         for i in range(len(contents)):
@@ -196,11 +197,19 @@ class Placer:
                         path = contents[j].replace("(uuid ", '').rstrip(")").upper().strip()
                         sheet_id = path.replace('00000000-0000-0000-0000-0000', '')
                     if "(property \"Sheet name\"" in contents[j] or "(property \"Sheetname\"" in contents[j]:
-                        sheetname = contents[j].replace("(property \"Sheet name\"", '').split("(")[0].replace("\"","").strip()
-                        sn_found = True
+                        if "(property \"Sheet name\"" in contents[j]:
+                            sheetname = contents[j].replace("(property \"Sheet name\"", '').split("(")[0].replace("\"", "").strip()
+                            sn_found = True
+                        if "(property \"Sheetname\"" in contents[j]:
+                            sheetname = contents[j].replace("(property \"Sheetname\"", '').split("(")[0].replace("\"", "").strip()
+                            sn_found = True
                     if "(property \"Sheet file\"" in contents[j] or "(property \"Sheetfile\"" in contents[j]:
-                        sheetfile = contents[j].replace("(property \"Sheet file\"", '').split("(")[0].replace("\"","").strip()
-                        sf_found = True
+                        if "(property \"Sheet file\"" in contents[j]:
+                            sheetfile = contents[j].replace("(property \"Sheet file\"", '').split("(")[0].replace("\"", "").strip()
+                            sf_found = True
+                        if "(property \"Sheetfile\"" in contents[j]:
+                            sheetfile = contents[j].replace("(property \"Sheetfile\"", '').split("(")[0].replace("\"", "").strip()
+                            sf_found = True
                 # properly handle property not found
                 if not sn_found or not sf_found:
                     logger.info(f'Did not found sheetfile and/or sheetname properties in the schematic file '
@@ -210,6 +219,7 @@ class Placer:
                 # here I should find all sheet data
                 dict_of_sheets[sheet_id] = [sheetname, sheetfile]
                 # open a newfound file and look for nested sheets
+                logger.info(f'Trying to parse: {sheetfile}, reference for which was found on line {i}')
                 self.parse_schematic_files(sheetfile, dict_of_sheets)
         return
 
