@@ -473,12 +473,14 @@ class PlaceFootprints(pcbnew.ActionPlugin):
             # get the sheet_id's selected for placement
             sheets_to_place_indices = dlg.list_sheets.GetSelections()
             sheets_to_place = [dlg.list_sheetsChoices[i] for i in sheets_to_place_indices]
+            logger.info("Sheets selected: " + repr(sheets_to_place))
 
-            # get footprints for placement
             fp_references = [ref_fp_ref]
-            for fp in footprints_with_same_id:
-                if fp.sheet_id in sheets_to_place:
-                    fp_references.append(fp.ref)
+            for sheet in sheets_to_place:
+                for fp in footprints_with_same_id:
+                    if "/".join(sheet) in "/".join(fp.sheet_id):
+                        fp_references.append(fp.ref)
+                        break
 
             logger.info("Footprints to place: " + repr(fp_references))
             # sort by reference number

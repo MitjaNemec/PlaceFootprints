@@ -8,6 +8,7 @@ place_footprints_light.png
 initial_dialog_GUI.py
 place_by_reference_GUI.py
 place_by_sheet_GUI.py
+error_dialog_GUI.py
 /place_footprints_test_projects/place_footprints-backups
 /place_footprints_test_projects/fp-info-cache
 /place_footprints_test_projects/place_footprints_test_sheet_matrix.kicad_pro
