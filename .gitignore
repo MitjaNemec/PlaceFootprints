@@ -49,3 +49,4 @@ place_footprints_test_projects/.directory
 /place_footprints_test_projects/place_footprints_temp_sheet_linear.kicad_pcb
 /place_footprints_test_projects/place_footprints_temp_sheet_matrix.kicad_pcb
 /place_footprints_test_projects/*.log
+error_dialog_GUI.py
