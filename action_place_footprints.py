@@ -83,6 +83,7 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
         self.list_sheetsChoices = None
         self.config_filename = os.path.join(self.placer.project_folder, 'place_footprints.ini')
         self.logger = logging.getLogger(__name__)
+        self.background_color = self.lbl_x_mag.GetBackgroundColour()
 
         footprints = self.placer.get_footprints_on_sheet(self.ref_fp.sheet_id)
         self.height, self.width = self.placer.get_footprints_bounding_box_size(footprints)
@@ -137,15 +138,38 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
 
     def on_ok(self, event):
         # test if all entries have numbers, if they don't then don't do anything
+        invalid_entry = False
         if self.val_x_mag.GetValue() == '':
-            return
+            self.val_x_mag.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_x_mag.SetBackgroundColour(self.background_color)
+
         if self.val_y_angle.GetValue() == '':
-            return
+            self.val_y_angle.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_y_angle.SetBackgroundColour(self.background_color)
+
         if self.val_nth.GetValue() == '':
-            return
+            self.val_nth.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_nth.SetBackgroundColour(self.background_color)
+
         if self.val_rotate.GetValue() == '':
-            return
+            self.val_rotate.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_rotate.SetBackgroundColour(self.background_color)
+
         if self.com_arr.GetStringSelection() != 'Linear' and self.val_columns_rad_step.GetValue() == '':
+            self.val_columns_rad_step.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_columns_rad_step.SetBackgroundColour(self.background_color)
+
+        if invalid_entry:
             return
 
         # clear highlights
@@ -325,6 +349,8 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
         self.user_units = user_units
         self.config_filename = os.path.join(self.placer.project_folder, 'place_footprints.ini')
         self.logger = logging.getLogger(__name__)
+        self.background_color = self.lbl_x_mag.GetBackgroundColour()
+        self.logger.info(repr(self.background_color))
 
         # grab footprint data
         self.ref_fp = ref_fp
@@ -453,15 +479,40 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
         pcbnew.Refresh()
 
     def on_ok(self, event):
+        invalid_entry = False
+
+        self.logger.info(repr(self.val_x_mag.GetValue()))
         if self.val_x_mag.GetValue() == '':
-            return
+            self.val_x_mag.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_x_mag.SetBackgroundColour(self.background_color)
+
         if self.val_y_angle.GetValue() == '':
-            return
+            self.val_y_angle.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_y_angle.SetBackgroundColour(self.background_color)
+
         if self.val_nth.GetValue() == '':
-            return
+            self.val_nth.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_nth.SetBackgroundColour(self.background_color)
+
         if self.val_rotate.GetValue() == '':
-            return
+            self.val_rotate.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_rotate.SetBackgroundColour(self.background_color)
+
         if self.com_arr.GetStringSelection() != 'Linear' and self.val_columns_rad_step.GetValue() == '':
+            self.val_columns_rad_step.SetBackgroundColour(wx.SystemSettings.GetColour(wx.SYS_COLOUR_HIGHLIGHT))
+            invalid_entry = True
+        else:
+            self.val_columns_rad_step.SetBackgroundColour(self.background_color)
+
+        if invalid_entry:
             return
 
         # clear highlights
