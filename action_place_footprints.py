@@ -83,6 +83,7 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
         self.list_sheetsChoices = None
         self.config_filename = os.path.join(self.placer.project_folder, 'place_footprints.ini')
         self.logger = logging.getLogger(__name__)
+        self.logger.info("By Sheet GUI initialized")
         self.background_color = self.lbl_x_mag.GetBackgroundColour()
 
         footprints = self.placer.get_footprints_on_sheet(self.ref_fp.sheet_id)
@@ -94,6 +95,9 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
         self.logger.info("Selecting: " + repr(self.list_levels.GetCount()))
         for i in range(self.list_levels.GetCount()):
             self.list_levels.SetSelection(i)
+
+        self.logger.info("Should invoke level_changed()")
+        self.level_changed(None)
 
         if user_units == 'mm':
             self.lbl_x_mag.SetLabelText(u"step x (mm):")
@@ -269,8 +273,9 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
         self.val_columns_rad_step.Enable()
 
     def level_changed(self, event):
-        index = self.list_levels.GetSelection()
+        self.logger.info("Level_changed() invoked")
 
+        index = self.list_levels.GetSelection()
         self.list_sheetsChoices = self.placer.get_sheets_to_replicate(self.ref_fp, self.ref_fp.sheet_id[index])
 
         # clear highlights
