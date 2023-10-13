@@ -193,28 +193,29 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
         config['sheet'] = {'arrangement': self.com_arr.GetStringSelection()}
         arrangement = config['sheet']['arrangement']
         if arrangement == 'Linear':
-            self.logger.info("Saving config sheet linear")
+            self.logger.info("Preparing config for sheet linear")
             config['sheet.linear'] = {'step_x': self.val_x_mag.GetValue(),
                                       'step_y': self.val_y_angle.GetValue(),
                                       'nth_rotate': self.val_nth.GetValue(),
                                       'nth_rotate_angle': self.val_rotate.GetValue()}
         if arrangement == 'Circular':
-            self.logger.info("Saving config sheet circular")
+            self.logger.info("Preparing config for sheet circular")
             config['sheet.circular'] = {'angle': self.val_y_angle.GetValue(),
                                         'radial_step': self.val_columns_rad_step.GetValue(),
                                         'radius': self.val_x_mag.GetValue(),
                                         'nth_rotate': self.val_nth.GetValue(),
                                         'nth_rotate_angle': self.val_rotate.GetValue()}
         if arrangement == 'Matrix':
-            self.logger.info("Saving config sheet matrix")
+            self.logger.info("Preparing config for sheet matrix")
             config['sheet.matrix'] = {'step_x': self.val_x_mag.GetValue(),
                                       'step_y': self.val_y_angle.GetValue(),
                                       'columns': self.val_columns_rad_step.GetValue(),
                                       'nth_rotate': self.val_nth.GetValue(),
                                       'nth_rotate_angle': self.val_rotate.GetValue()}
         with open(self.config_filename, 'w') as configfile:
-            self.logger.info("Saving config saving file")
+            self.logger.info("Saving config file")
             config.write(configfile)
+            self.logger.info("Saved the config file")
         event.Skip()
 
     def modify_dialog_for_linear(self):
@@ -372,7 +373,7 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
         self.val_columns_rad_step.Disable()
 
         # load config file if it
-    def on_show( self, event ):
+    def on_show(self, event ):
         if os.path.exists(self.config_filename):
             config = configparser.ConfigParser()
             config.read(self.config_filename)
@@ -532,24 +533,29 @@ class PlaceByReferenceDialog(PlaceByReferenceGUI):
         config['reference'] = {'arrangement': self.com_arr.GetStringSelection()}
         arrangement = config['reference']['arrangement']
         if arrangement == 'Linear':
+            self.logger.info("Preparing config for reference linear")
             config['reference.linear'] = {'step_x': self.val_x_mag.GetValue(),
                                           'step_y': self.val_y_angle.GetValue(),
                                           'nth_rotate': self.val_nth.GetValue(),
                                           'nth_rotate_angle':  self.val_rotate.GetValue()}
         if arrangement == 'Circular':
+            self.logger.info("Preparing config for reference circular")
             config['reference.circular'] = {'angle': self.val_y_angle.GetValue(),
                                             'radial_step': self.val_columns_rad_step.GetValue(),
                                             'radius': self.val_x_mag.GetValue(),
                                             'nth_rotate': self.val_nth.GetValue(),
                                             'nth_rotate_angle': self.val_rotate.GetValue()}
         if arrangement == 'Matrix':
+            self.logger.info("Preparing config for reference matrix")
             config['reference.matrix'] = {'step_x': self.val_x_mag.GetValue(),
                                           'step_y': self.val_y_angle.GetValue(),
                                           'columns': self.val_columns_rad_step.GetValue(),
                                           'nth_rotate': self.val_nth.GetValue(),
                                           'nth_rotate_angle': self.val_rotate.GetValue()}
         with open(self.config_filename, 'w') as configfile:
+            self.logger.info("Saving config file")
             config.write(configfile)
+            self.logger.info("Saved the config file")
 
         event.Skip()
 
