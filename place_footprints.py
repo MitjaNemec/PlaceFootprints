@@ -134,8 +134,8 @@ class Placer:
 
             sheet_id = self.get_sheet_id(fp)
             try:
-                sheet_file = fp.GetProperty('Sheetfile')
-                sheet_name = fp.GetProperty('Sheetname')
+                sheet_file = fp.GetSheetfile()
+                sheet_name = fp.GetSheetname()
             except KeyError:
                 logger.info("Footprint " + fp.GetReference() +
                             " does not have Sheetfile property, it will not be considered for placement."
@@ -167,7 +167,7 @@ class Placer:
 
         for fp in footprints:
             try:
-                sheet_file = fp.GetProperty('Sheetfile')
+                sheet_file = fp.GetSheetfile()
                 # construct a list of all the footprints
                 mod_named_tuple = Footprint(fp=fp,
                                             fp_id=self.get_footprint_id(fp),
@@ -402,25 +402,52 @@ class Placer:
             footprints.append(self.get_fp_by_ref(fp))
 
         ref_fp = self.get_fp_by_ref(reference_footprint)
+        # get reference footprint position
+        ref_fp_pos = ref_fp.fp.GetPosition()
+        ref_fp_index = footprints.index(ref_fp)
 
-        # get first footprint position
-        # TODO - take reference footprint position for start and build matrix around it (before, after)
-        # TODO - would have to split the for loop into two for loops
-        first_fp = footprints[0]
-        first_fp_pos = first_fp.fp.GetPosition()
-
-        if copy_text_items:
-            self.replicate_fp_text_items(ref_fp, first_fp)
-
-        for fp in footprints[1:]:
-            if fp.fp.IsFlipped() != first_fp.fp.IsFlipped():
+        for fp in reversed(footprints[:ref_fp_index]):
+            if fp.ref == "R201":
+                # by sheet: orientation of fp, flip of silk and fab text
+                # by ref: orientation of fp, position and flip of silk and fab text
+                a = 2
+            if fp.ref == "R301":
+                # by sheet: position and flip of silk and fab text
+                a = 2
+            if fp.fp.IsFlipped() != ref_fp.fp.IsFlipped():
                 fp.fp.Flip(fp.fp.GetPosition(), False)
 
-            index = footprints.index(fp)
+            index = footprints.index(fp) - ref_fp_index
             row = index // nr_columns
             column = index - row * nr_columns
-            new_pos_x = first_fp_pos.x + column * step_x * SCALE
-            new_pos_y = first_fp_pos.y + row * step_y * SCALE
+            new_pos_x = ref_fp_pos.x + column * step_x * SCALE
+            new_pos_y = ref_fp_pos.y + row * step_y * SCALE
+            new_position = (new_pos_x, new_pos_y)
+            new_position = [int(x) for x in new_position]
+            fp.fp.SetPosition(pcbnew.VECTOR2I(*new_position))
+            footprint_angle = ref_fp.fp.GetOrientationDegrees()
+            footprint_angle = footprint_angle + index // step * rotation
+            fp.fp.SetOrientationDegrees(footprint_angle)
+
+            if copy_text_items:
+                self.replicate_fp_text_items(ref_fp, fp)
+
+        for fp in footprints[ref_fp_index+1:]:
+            if fp.ref == "R201":
+                # by sheet: orientation of fp, flip of silk and fab text
+                # by ref: orientation of fp, position and flip of silk and fab text
+                a = 2
+            if fp.ref == "R301":
+                # by sheet: position and flip of silk and fab text
+                a = 2
+            if fp.fp.IsFlipped() != ref_fp.fp.IsFlipped():
+                fp.fp.Flip(fp.fp.GetPosition(), False)
+
+            index = footprints.index(fp) - ref_fp_index
+            row = index // nr_columns
+            column = index - row * nr_columns
+            new_pos_x = ref_fp_pos.x + column * step_x * SCALE
+            new_pos_y = ref_fp_pos.y + row * step_y * SCALE
             new_position = (new_pos_x, new_pos_y)
             new_position = [int(x) for x in new_position]
             fp.fp.SetPosition(pcbnew.VECTOR2I(*new_position))
@@ -461,24 +488,11 @@ class Placer:
 
             # set layer
             dst_fp_text_items[index].SetLayer(src_text.GetLayer())
+            # copy all attributes
+            dst_fp_text_items[index].SetAttributes(src_text.GetAttributes())
             # set orientation
-            dst_fp_text_items[index].SetTextAngle(src_text.GetTextAngle())
-            # thickness
-            dst_fp_text_items[index].SetTextThickness(src_text.GetTextThickness())
-            # width
-            dst_fp_text_items[index].SetTextWidth(src_text.GetTextWidth())
-            # height
-            dst_fp_text_items[index].SetTextHeight(src_text.GetTextHeight())
-            # rest of the parameters
-            dst_fp_text_items[index].SetItalic(src_text.IsItalic())
-            dst_fp_text_items[index].SetBold(src_text.IsBold())
-            dst_fp_text_items[index].SetMirrored(src_text.IsMirrored())
-            dst_fp_text_items[index].SetMultilineAllowed(src_text.IsMultilineAllowed())
-            dst_fp_text_items[index].SetHorizJustify(src_text.GetHorizJustify())
-            dst_fp_text_items[index].SetVertJustify(src_text.GetVertJustify())
-            dst_fp_text_items[index].SetKeepUpright(src_text.IsKeepUpright())
-            # set visibility
-            dst_fp_text_items[index].SetVisible(src_text.IsVisible())
+            dst_fp_text_items[index].SetTextAngleDegrees(src_text.GetTextAngleDegrees()-angle)
+
 
     @staticmethod
     def get_module_text_items(footprint):
@@ -487,6 +501,6 @@ class Placer:
 
         footprint_items = footprint.fp.GraphicalItems()
         for item in footprint_items:
-            if type(item) is pcbnew.FP_TEXT:
+            if type(item) is pcbnew.PCB_TEXT:
                 list_of_items.append(item)
         return list_of_items

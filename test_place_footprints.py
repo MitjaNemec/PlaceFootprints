@@ -70,7 +70,9 @@ def test(in_file, out_file, ref_fp_ref, mode, layout):
     saved = pcbnew.SaveBoard(out_file, board)
     test_file = out_file.replace("temp", "test")
 
+    print("Comparing board files")
     ret_val = compare_boards.compare_boards(out_file, test_file)
+    #ret_val = 1
     # remove the temporary board file
     # os.remove(out_file)
 
@@ -96,6 +98,29 @@ class TestByRef(unittest.TestCase):
 
     def test_matrix_by_ref(self):
         output_file = self.input_file.split('.')[0] + "_temp_ref_matrix" + ".kicad_pcb"
+        err = test(self.input_file, output_file, self.ref_fp_ref, 'by ref', 'matrix')
+        self.assertEqual(err, 0, "Should be 0")
+
+
+class TestByRefFlipped(unittest.TestCase):
+    def setUp(self):
+        # basic setup
+        os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "place_footprints_test_projects"))
+        self.input_file = 'place_footprints.kicad_pcb'
+        self.ref_fp_ref = 'R304'
+
+    def test_circular_by_ref(self):
+        output_file = self.input_file.split('.')[0] + "_temp_ref_circular_flipped" + ".kicad_pcb"
+        err = test(self.input_file, output_file, self.ref_fp_ref, 'by ref', 'circular')
+        self.assertEqual(err, 0, "Should be 0")
+
+    def test_linear_by_ref(self):
+        output_file = self.input_file.split('.')[0] + "_temp_ref_linear_flipped" + ".kicad_pcb"
+        err = test(self.input_file, output_file, self.ref_fp_ref, 'by ref', 'linear')
+        self.assertEqual(err, 0, "Should be 0")
+
+    def test_matrix_by_ref(self):
+        output_file = self.input_file.split('.')[0] + "_temp_ref_matrix_flipped" + ".kicad_pcb"
         err = test(self.input_file, output_file, self.ref_fp_ref, 'by ref', 'matrix')
         self.assertEqual(err, 0, "Should be 0")
 

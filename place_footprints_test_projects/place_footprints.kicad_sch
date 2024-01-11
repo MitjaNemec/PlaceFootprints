@@ -1,370 +1,506 @@
-(kicad_sch (version 20211123) (generator eeschema)
-
-  (uuid d0dfd7c1-401d-4f64-8463-f4c0813ac28f)
-
-  (paper "A4")
-
-  (lib_symbols
-    (symbol "Device:R" (pin_numbers hide) (pin_names (offset 0)) (in_bom yes) (on_board yes)
-      (property "Reference" "R" (id 0) (at 2.032 0 90)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Value" "R" (id 1) (at 0 0 90)
-        (effects (font (size 1.27 1.27)))
-      )
-      (property "Footprint" "" (id 2) (at -1.778 0 90)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "Datasheet" "~" (id 3) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_keywords" "R res resistor" (id 4) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_description" "Resistor" (id 5) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (property "ki_fp_filters" "R_*" (id 6) (at 0 0 0)
-        (effects (font (size 1.27 1.27)) hide)
-      )
-      (symbol "R_0_1"
-        (rectangle (start -1.016 -2.54) (end 1.016 2.54)
-          (stroke (width 0.254) (type default) (color 0 0 0 0))
-          (fill (type none))
-        )
-      )
-      (symbol "R_1_1"
-        (pin passive line (at 0 3.81 270) (length 1.27)
-          (name "~" (effects (font (size 1.27 1.27))))
-          (number "1" (effects (font (size 1.27 1.27))))
-        )
-        (pin passive line (at 0 -3.81 90) (length 1.27)
-          (name "~" (effects (font (size 1.27 1.27))))
-          (number "2" (effects (font (size 1.27 1.27))))
-        )
-      )
-    )
-  )
-
-
-  (symbol (lib_id "Device:R") (at 60.96 92.71 0) (unit 1)
-    (in_bom yes) (on_board yes)
-    (uuid 6d1d60ff-408a-47a7-892f-c5cf9ef6ca75)
-    (property "Reference" "R101" (id 0) (at 62.992 92.71 90))
-    (property "Value" "R" (id 1) (at 60.96 92.71 90))
-    (property "Footprint" "Resistor_SMD:R_1210_3225Metric_Pad1.30x2.65mm_HandSolder" (id 2) (at 59.182 92.71 90)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (property "Datasheet" "~" (id 3) (at 60.96 92.71 0)
-      (effects (font (size 1.27 1.27)) hide)
-    )
-    (pin "1" (uuid e502d1d5-04b0-4d4b-b5c3-8c52d09668e7))
-    (pin "2" (uuid 7c04618d-9115-4179-b234-a8faf854ea92))
-  )
-
-  (sheet (at 48.26 25.4) (size 17.78 17.78) (fields_autoplaced)
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-    (fill (color 0 0 0 0.0000))
-    (uuid 00000000-0000-0000-0000-00005c66f70d)
-    (property "Sheet name" "Sheet1" (id 0) (at 48.26 24.6884 0)
-      (effects (font (size 1.27 1.27)) (justify left bottom))
-    )
-    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 48.26 43.7646 0)
-      (effects (font (size 1.27 1.27)) (justify left top))
-    )
-  )
-
-  (sheet (at 53.34 30.48) (size 17.78 17.78) (fields_autoplaced)
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-    (fill (color 0 0 0 0.0000))
-    (uuid 00000000-0000-0000-0000-00005c66f723)
-    (property "Sheet name" "Sheet2" (id 0) (at 53.34 29.7684 0)
-      (effects (font (size 1.27 1.27)) (justify left bottom))
-    )
-    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 53.34 48.8446 0)
-      (effects (font (size 1.27 1.27)) (justify left top))
-    )
-  )
-
-  (sheet (at 58.42 35.56) (size 17.78 17.78) (fields_autoplaced)
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-    (fill (color 0 0 0 0.0000))
-    (uuid 00000000-0000-0000-0000-00005c66f730)
-    (property "Sheet name" "Sheet3" (id 0) (at 58.42 34.8484 0)
-      (effects (font (size 1.27 1.27)) (justify left bottom))
-    )
-    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 58.42 53.9246 0)
-      (effects (font (size 1.27 1.27)) (justify left top))
-    )
-  )
-
-  (sheet (at 63.5 40.64) (size 17.78 17.78) (fields_autoplaced)
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-    (fill (color 0 0 0 0.0000))
-    (uuid 00000000-0000-0000-0000-00005c66f732)
-    (property "Sheet name" "Sheet4" (id 0) (at 63.5 39.9284 0)
-      (effects (font (size 1.27 1.27)) (justify left bottom))
-    )
-    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 63.5 59.0046 0)
-      (effects (font (size 1.27 1.27)) (justify left top))
-    )
-  )
-
-  (sheet (at 68.58 45.72) (size 17.78 17.78) (fields_autoplaced)
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-    (fill (color 0 0 0 0.0000))
-    (uuid 00000000-0000-0000-0000-00005c66f753)
-    (property "Sheet name" "Sheet5" (id 0) (at 68.58 45.0084 0)
-      (effects (font (size 1.27 1.27)) (justify left bottom))
-    )
-    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 68.58 64.0846 0)
-      (effects (font (size 1.27 1.27)) (justify left top))
-    )
-  )
-
-  (sheet (at 73.66 50.8) (size 17.78 17.78) (fields_autoplaced)
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-    (fill (color 0 0 0 0.0000))
-    (uuid 00000000-0000-0000-0000-00005c66f755)
-    (property "Sheet name" "Sheet6" (id 0) (at 73.66 50.0884 0)
-      (effects (font (size 1.27 1.27)) (justify left bottom))
-    )
-    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 73.66 69.1646 0)
-      (effects (font (size 1.27 1.27)) (justify left top))
-    )
-  )
-
-  (sheet (at 78.74 55.88) (size 17.78 17.78) (fields_autoplaced)
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-    (fill (color 0 0 0 0.0000))
-    (uuid 00000000-0000-0000-0000-00005c66f757)
-    (property "Sheet name" "Sheet7" (id 0) (at 78.74 55.1684 0)
-      (effects (font (size 1.27 1.27)) (justify left bottom))
-    )
-    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 78.74 74.2446 0)
-      (effects (font (size 1.27 1.27)) (justify left top))
-    )
-  )
-
-  (sheet (at 83.82 60.96) (size 17.78 17.78) (fields_autoplaced)
-    (stroke (width 0) (type solid) (color 0 0 0 0))
-    (fill (color 0 0 0 0.0000))
-    (uuid 00000000-0000-0000-0000-00005c66f759)
-    (property "Sheet name" "Sheet8" (id 0) (at 83.82 60.2484 0)
-      (effects (font (size 1.27 1.27)) (justify left bottom))
-    )
-    (property "Sheet file" "Sheet.kicad_sch" (id 1) (at 83.82 79.3246 0)
-      (effects (font (size 1.27 1.27)) (justify left top))
-    )
-  )
-
-  (sheet_instances
-    (path "/" (page "1"))
-    (path "/00000000-0000-0000-0000-00005c66f70d" (page "2"))
-    (path "/00000000-0000-0000-0000-00005c66f723" (page "3"))
-    (path "/00000000-0000-0000-0000-00005c66f730" (page "4"))
-    (path "/00000000-0000-0000-0000-00005c66f732" (page "5"))
-    (path "/00000000-0000-0000-0000-00005c66f753" (page "6"))
-    (path "/00000000-0000-0000-0000-00005c66f755" (page "7"))
-    (path "/00000000-0000-0000-0000-00005c66f757" (page "8"))
-    (path "/00000000-0000-0000-0000-00005c66f759" (page "9"))
-  )
-
-  (symbol_instances
-    (path "/6d1d60ff-408a-47a7-892f-c5cf9ef6ca75"
-      (reference "R101") (unit 1) (value "R") (footprint "Resistor_SMD:R_1210_3225Metric_Pad1.30x2.65mm_HandSolder")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f7b3"
-      (reference "R201") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f845"
-      (reference "R202") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f85d"
-      (reference "R203") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f87b"
-      (reference "R204") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f897"
-      (reference "R205") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f8d7"
-      (reference "R206") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f8fb"
-      (reference "R207") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f70d/00000000-0000-0000-0000-00005c66f921"
-      (reference "R208") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f7b3"
-      (reference "R301") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f845"
-      (reference "R302") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f85d"
-      (reference "R303") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f87b"
-      (reference "R304") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f897"
-      (reference "R305") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f8d7"
-      (reference "R306") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f8fb"
-      (reference "R307") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f723/00000000-0000-0000-0000-00005c66f921"
-      (reference "R308") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f7b3"
-      (reference "R401") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f845"
-      (reference "R402") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f85d"
-      (reference "R403") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f87b"
-      (reference "R404") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f897"
-      (reference "R405") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f8d7"
-      (reference "R406") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f8fb"
-      (reference "R407") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f730/00000000-0000-0000-0000-00005c66f921"
-      (reference "R408") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f7b3"
-      (reference "R501") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f845"
-      (reference "R502") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f85d"
-      (reference "R503") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f87b"
-      (reference "R504") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f897"
-      (reference "R505") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f8d7"
-      (reference "R506") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f8fb"
-      (reference "R507") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f732/00000000-0000-0000-0000-00005c66f921"
-      (reference "R508") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f7b3"
-      (reference "R601") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f845"
-      (reference "R602") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f85d"
-      (reference "R603") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f87b"
-      (reference "R604") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f897"
-      (reference "R605") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f8d7"
-      (reference "R606") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f8fb"
-      (reference "R607") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f753/00000000-0000-0000-0000-00005c66f921"
-      (reference "R608") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f7b3"
-      (reference "R701") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f845"
-      (reference "R702") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f85d"
-      (reference "R703") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f87b"
-      (reference "R704") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f897"
-      (reference "R705") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f8d7"
-      (reference "R706") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f8fb"
-      (reference "R707") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f755/00000000-0000-0000-0000-00005c66f921"
-      (reference "R708") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f7b3"
-      (reference "R801") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f845"
-      (reference "R802") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f85d"
-      (reference "R803") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f87b"
-      (reference "R804") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f897"
-      (reference "R805") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f8d7"
-      (reference "R806") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f8fb"
-      (reference "R807") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f757/00000000-0000-0000-0000-00005c66f921"
-      (reference "R808") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f7b3"
-      (reference "R901") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f845"
-      (reference "R902") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f85d"
-      (reference "R903") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f87b"
-      (reference "R904") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f897"
-      (reference "R905") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f8d7"
-      (reference "R906") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f8fb"
-      (reference "R907") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-    (path "/00000000-0000-0000-0000-00005c66f759/00000000-0000-0000-0000-00005c66f921"
-      (reference "R908") (unit 1) (value "1k") (footprint "Passives:R1206M")
-    )
-  )
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "7.99")
+	(uuid "91275b0a-d095-4c5d-a4fb-aece3abd8bb1")
+	(paper "A4")
+	(lib_symbols
+		(symbol "Device:R"
+			(pin_numbers hide)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 41.91 101.6 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "30f5ca15-e534-4e67-9545-be09f1520126")
+		(property "Reference" "R101"
+			(at 41.91 99.568 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "R"
+			(at 41.91 101.6 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_1206_3216Metric"
+			(at 41.91 103.378 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 41.91 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 41.91 101.6 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "131c16ce-436d-4e83-b81d-9db6b19c5084")
+		)
+		(pin "1"
+			(uuid "5c1e2ac6-2857-4232-a35a-99af1a0cf290")
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(reference "R101")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(sheet
+		(at 38.1 50.8)
+		(size 12.7 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "08adbb1e-6261-40e1-8672-d6bd21815514")
+		(property "Sheetname" "Sheet 5"
+			(at 38.1 50.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sheet.kicad_sch"
+			(at 38.1 64.0846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(page "6")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 88.9 50.8)
+		(size 12.7 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "2b34dc1a-e45e-4d52-b693-3488eaff7050")
+		(property "Sheetname" "Sheet 7"
+			(at 88.9 50.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sheet.kicad_sch"
+			(at 88.9 64.0846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(page "8")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 63.5 25.4)
+		(size 12.7 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "3194777c-e813-428f-9213-f1176b18826e")
+		(property "Sheetname" "Sheet 2"
+			(at 63.5 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sheet.kicad_sch"
+			(at 63.5 38.6846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 38.1 25.4)
+		(size 12.7 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "68e44ded-3bd9-48d9-a1bb-7ab48cc48f65")
+		(property "Sheetname" "Sheet 1"
+			(at 38.1 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sheet.kicad_sch"
+			(at 38.1 38.6846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 88.9 25.4)
+		(size 12.7 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "755e1c60-fa08-4b78-a227-a31c12f177b5")
+		(property "Sheetname" "Sheet 3"
+			(at 88.9 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sheet.kicad_sch"
+			(at 88.9 38.6846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 114.3 25.4)
+		(size 12.7 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7d9b998d-5a96-4ed8-b45f-18ddae33989b")
+		(property "Sheetname" "Sheet 4"
+			(at 114.3 24.6884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sheet.kicad_sch"
+			(at 114.3 38.6846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 114.3 50.8)
+		(size 12.7 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "def34931-c3db-4fd8-a0b5-d4fd82f56804")
+		(property "Sheetname" "Sheet 8"
+			(at 114.3 50.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sheet.kicad_sch"
+			(at 114.3 64.0846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(page "9")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 63.5 50.8)
+		(size 12.7 12.7)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "f066a94d-39c6-4c9d-8f10-664596d2bf00")
+		(property "Sheetname" "Sheet 6"
+			(at 63.5 50.0884 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sheet.kicad_sch"
+			(at 63.5 64.0846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "place_footprints"
+				(path "/91275b0a-d095-4c5d-a4fb-aece3abd8bb1"
+					(page "7")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
 )
