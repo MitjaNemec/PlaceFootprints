@@ -236,48 +236,40 @@ class Placer:
                 footprints_with_same_id.append(fp)
         return footprints_with_same_id
 
-    def get_sheets_to_replicate(self, reference_footprint, level):
+    def get_sheets_to_place(self, reference_footprint, level):
         sheet_id = reference_footprint.sheet_id
+        level_index = sheet_id.index(level)
+        sheet_depth = len(sheet_id)
+
         sheet_file = reference_footprint.filename
         # find level_id
         level_file = sheet_file[sheet_id.index(level)]
         logger.info('constructing a list of sheets suitable for replication on level:'
                     + repr(level) + ", file:" + repr(level_file))
 
-        # construct complete hierarchy path up to the level of reference footprint
-        sheet_id_up_to_level = []
-        for i in range(len(sheet_id)):
-            sheet_id_up_to_level.append(sheet_id[i])
-            if sheet_id[i] == level:
-                break
+        up_to_level_file = sheet_file[:level_index+1]
 
         # get all footprints with same ID
         footprints_with_same_id = self.get_list_of_footprints_with_same_id(reference_footprint.fp_id)
-        # if hierarchy is deeper, match only the sheets with same hierarchy from root to -1
-        sheets_on_same_level = []
 
-        # go through all the footprints
+        sheets_up_to_same_level = []
         for fp in footprints_with_same_id:
-            # if the footprint is on selected level, it's sheet is added to the list of sheets on this level
-            if level_file in fp.filename:
-                sheet_id_list = []
-                # create a hierarchy path only up to the level
-                for i in range(len(fp.filename)):
-                    sheet_id_list.append(fp.sheet_id[i])
-                    if fp.filename[i] == level_file:
-                        break
-                sheets_on_same_level.append(sheet_id_list)
+            # match only if the filepath matches and all but the level sheetnames match
+            if len(fp.sheet_id) == len(sheet_id):
+                fp_id_level = "/".join(fp.sheet_id[:level_index] + fp.sheet_id[level_index+1:])
+                ref_fp_id_level = "/".join(sheet_id[:level_index] + sheet_id[level_index+1:])
+                if fp.filename[:level_index+1] == up_to_level_file and fp_id_level == ref_fp_id_level:
+                    sheets_up_to_same_level.append(fp.sheet_id)
 
-        # remove duplicates
-        sheets_on_same_level.sort()
-        sheets_on_same_level = list(k for k, _ in itertools.groupby(sheets_on_same_level))
+        # sort
+        sheets_up_to_same_level.sort(key=lambda item: (len("".join(item)), item))
 
         # remove the sheet path for reference footprint
-        if sheet_id_up_to_level in sheets_on_same_level:
-            index = sheets_on_same_level.index(sheet_id_up_to_level)
-            del sheets_on_same_level[index]
-        logger.info("suitable sheets are:"+repr(sheets_on_same_level))
-        return sheets_on_same_level
+        if sheet_id in sheets_up_to_same_level:
+            index = sheets_up_to_same_level.index(sheet_id)
+            del sheets_up_to_same_level[index]
+        logger.info("suitable sheets are:"+repr(sheets_up_to_same_level))
+        return sheets_up_to_same_level
 
     def get_footprints_on_sheet(self, level):
         footprints_on_sheet = []

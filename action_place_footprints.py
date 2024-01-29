@@ -91,6 +91,9 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
 
         self.list_levels.Clear()
         self.list_levels.AppendItems(self.ref_fp.filename)
+
+        self.logger.info("Ref fp:" + repr(self.ref_fp))
+        self.logger.info("Levels:" + repr(self.ref_fp.filename))
         # by default select all items
         self.logger.info("Selecting: " + repr(self.list_levels.GetCount()))
         for i in range(self.list_levels.GetCount()):
@@ -277,7 +280,9 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
         self.logger.info("Level_changed() invoked")
 
         index = self.list_levels.GetSelection()
-        self.list_sheetsChoices = self.placer.get_sheets_to_replicate(self.ref_fp, self.ref_fp.sheet_id[index])
+        self.logger.info(f'self.ref_fp.sheet_id[index] = {repr(self.ref_fp.sheet_id[index])}')
+        self.logger.info(f'self.ref_fp.sheet_id = {repr(self.ref_fp.sheet_id)}')
+        self.list_sheetsChoices = self.placer.get_sheets_to_place(self.ref_fp, self.ref_fp.sheet_id[index])
 
         # clear highlights
         for ref in self.ref_list:
@@ -290,11 +295,15 @@ class PlaceBySheetDialog(PlaceBySheetGUI):
 
         # find matching anchors to matching sheets so that indices will match
         self.ref_list = []
-        for sheet in self.list_sheetsChoices:
-            for fp in footprints_with_same_id:
+        self.logger.info(f'self.list_sheetsChoices: {repr(self.list_sheetsChoices)}')
+
+        for fp in footprints_with_same_id:
+            self.logger.info(f'fp.sheet_id: {repr(fp.sheet_id)}')
+            for sheet in self.list_sheetsChoices:
                 if "/".join(sheet) in "/".join(fp.sheet_id):
                     self.ref_list.append(fp.ref)
                     break
+        self.logger.info(f'self.ref_list: {repr(self.ref_list)}')
 
         sheets_for_list = ['/'.join(x[0]) + " (" + x[1] + ")" for x in zip(self.list_sheetsChoices, self.ref_list)]
 
