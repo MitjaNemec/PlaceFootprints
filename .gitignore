@@ -65,3 +65,5 @@ VecSchalt/VecSchalt.kicad_sch
 VecSchalt/Zeile.kicad_sch
 VecSchalt/fp-info-cache
 VecSchalt/replicate_layout.log
+test_config.ini
+place_footprints_test_projects/place_footprints.ini
