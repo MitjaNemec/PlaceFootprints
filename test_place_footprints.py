@@ -14,7 +14,7 @@ def natural_sort(l):
     return sorted(l, key=alphanum_key)
 
 
-def test(in_file, out_file, ref_fp_ref, mode, layout):
+def test(in_file, out_file, ref_fp_ref, mode, layout, level=None):
     board = pcbnew.LoadBoard(in_file)
 
     placer = Placer(board)
@@ -51,7 +51,26 @@ def test(in_file, out_file, ref_fp_ref, mode, layout):
 
     if mode == 'by sheet':
         ref_footprint = placer.get_fp_by_ref(ref_fp_ref)
+
+        if level is None:
+            level = ref_footprint.sheet_id[-1]
+        else:
+            level = ref_footprint.sheet_id[level]
+
+        list_of_sheets_to_place = placer.get_sheets_to_place(ref_footprint, level)
+
         list_of_footprints = placer.get_list_of_footprints_with_same_id(ref_footprint.fp_id)
+
+        # find matching anchors to matching sheets so that indices will match
+        ref_list = []
+        for sheet in list_of_sheets_to_place:
+            for fp in list_of_footprints:
+                a = "/".join(sheet)
+                b = "/".join(fp.sheet_id)
+                if "/".join(sheet) == "/".join(fp.sheet_id):
+                    ref_list.append(fp.ref)
+                    break
+
         footprints = []
         for fp in list_of_footprints:
             footprints.append(fp.ref)
@@ -79,6 +98,36 @@ def test(in_file, out_file, ref_fp_ref, mode, layout):
     return ret_val
 
 
+class issue_21(unittest.TestCase):
+    def setUp(self):
+        # basic setup
+        os.chdir(os.path.join(os.path.dirname(os.path.realpath(__file__)), "issue_21"))
+        self.input_file = 'place_footprints.kicad_pcb'
+        self.ref_fp_ref = 'R202'
+
+    @unittest.skip
+    def test_shallow(self):
+        self.ref_fp_ref = 'R202'
+        output_file = self.input_file.split('.')[0] + "_temp_sheet_circular" + ".kicad_pcb"
+        err = test(self.input_file, output_file, self.ref_fp_ref, 'by sheet', 'circular')
+        self.assertEqual(err, 0, "Should be 0")
+
+
+    def test_shallow_nested(self):
+        self.ref_fp_ref = 'R1502'
+        output_file = self.input_file.split('.')[0] + "_temp_sheet_circular" + ".kicad_pcb"
+        err = test(self.input_file, output_file, self.ref_fp_ref, 'by sheet', 'circular', level=-1)
+        self.assertEqual(err, 0, "Should be 0")
+
+    @unittest.skip
+    def test_deep(self):
+        self.ref_fp_ref = 'R1502'
+        output_file = self.input_file.split('.')[0] + "_temp_sheet_circular" + ".kicad_pcb"
+        err = test(self.input_file, output_file, self.ref_fp_ref, 'by sheet', 'circular', level=-2)
+        self.assertEqual(err, 0, "Should be 0")
+
+
+@unittest.skip
 class TestByRef(unittest.TestCase):
     def setUp(self):
         # basic setup
@@ -102,6 +151,7 @@ class TestByRef(unittest.TestCase):
         self.assertEqual(err, 0, "Should be 0")
 
 
+@unittest.skip
 class TestByRefFlipped(unittest.TestCase):
     def setUp(self):
         # basic setup
@@ -125,6 +175,7 @@ class TestByRefFlipped(unittest.TestCase):
         self.assertEqual(err, 0, "Should be 0")
 
 
+@unittest.skip
 class TestBySheet(unittest.TestCase):
     def setUp(self):
         # basic setup

@@ -180,53 +180,90 @@ class Placer:
         pass
 
     def parse_schematic_files(self, filename, dict_of_sheets):
-        with open(filename, encoding='utf-8') as f:
-            contents = f.read().split("\n")
         filename_dir = os.path.dirname(filename)
-        # find (sheet (at and then look in next few lines for new schematics file
-        for i in range(len(contents)):
-            line = contents[i]
-            if "(sheet (at" in line:
-                sheetname = ""
-                sheetfile = ""
-                sheet_id = ""
-                sn_found = False
-                sf_found = False
-                for j in range(i,i+10):
-                    line_con = contents[j]
-                    if "(uuid " in contents[j]:
-                        path = contents[j].replace("(uuid ", '').rstrip(")").upper().strip()
-                        sheet_id = path.replace('00000000-0000-0000-0000-0000', '')
-                    if "(property \"Sheet name\"" in contents[j] or "(property \"Sheetname\"" in contents[j]:
-                        if "(property \"Sheet name\"" in contents[j]:
-                            sheetname = contents[j].replace("(property \"Sheet name\"", '').split("(")[0].replace("\"", "").strip()
-                            sn_found = True
-                        if "(property \"Sheetname\"" in contents[j]:
-                            sheetname = contents[j].replace("(property \"Sheetname\"", '').split("(")[0].replace("\"", "").strip()
-                            sn_found = True
-                    if "(property \"Sheet file\"" in contents[j] or "(property \"Sheetfile\"" in contents[j]:
-                        if "(property \"Sheet file\"" in contents[j]:
-                            sheetfile = contents[j].replace("(property \"Sheet file\"", '').split("(")[0].replace("\"", "").strip()
-                            sf_found = True
-                        if "(property \"Sheetfile\"" in contents[j]:
-                            sheetfile = contents[j].replace("(property \"Sheetfile\"", '').split("(")[0].replace("\"", "").strip()
-                            sf_found = True
-                # properly handle property not found
-                if not sn_found or not sf_found:
-                    logger.info(f'Did not found sheetfile and/or sheetname properties in the schematic file '
-                                f'in {filename} line:{str(i)}')
-                    raise LookupError(f'Did not found sheetfile and/or sheetname properties in the schematic file '
-                                f'in {filename} line:{str(i)}. Unsupported schematics file format')
 
-                sheetfilepath = os.path.join(filename_dir, sheetfile)
-                # here I should find all sheet data
-                dict_of_sheets[sheet_id] = [sheetname, sheetfilepath]
-                # test if newfound file can be opened
-                if not os.path.exists(sheetfilepath):
-                    raise LookupError(f'File {sheetfilepath} does not exists. This is either due to error in parsing'
-                                      f' schematics files, missing schematics file or an error within the schematics')
-                # open a newfound file and look for nested sheets
-                self.parse_schematic_files(sheetfilepath, dict_of_sheets)
+        with open(filename, encoding='utf-8') as f:
+            contents = f.read()
+
+        indexes = []
+        level = []
+        sheet_definitions = []
+        new_lines = []
+        lvl = 0
+        # get the nesting levels at index
+        for idx in range(len(contents) - 20):
+            if contents[idx] == "(":
+                lvl = lvl + 1
+                level.append(lvl)
+                indexes.append(idx)
+            if contents[idx] == ")":
+                lvl = lvl - 1
+                level.append(lvl)
+                indexes.append(idx)
+            if contents[idx] == "\n":
+                new_lines.append(idx)
+            a = contents[idx:idx + 20]
+            if a.startswith("(sheet\n") or a.startswith("(sheet "):
+                sheet_definitions.append(idx)
+
+        start_idx = sheet_definitions
+        end_idx = sheet_definitions[1:]
+        end_idx.append(len(contents))
+        braces = list(zip(indexes, level))
+        # parse individual sheet definitions (if any)
+        for start, end in zip(start_idx, end_idx):
+            def next_bigger(l, v):
+                for m in l:
+                    if m > v:
+                        return m
+
+            uuid_loc = contents[start:end].find('(uuid') + start
+            uuid_loc_end = next_bigger(new_lines, uuid_loc)
+            uuid_complete_string = contents[uuid_loc:uuid_loc_end]
+            uuid = uuid_complete_string.strip("(uuid").strip(")").replace("\"", '').upper().lstrip()
+
+            v8encoding = contents[start:end].find('(property "Sheetname\"')
+            v7encoding = contents[start:end].find('(property "Sheet name\"')
+            if v8encoding != -1:
+                offset = v8encoding
+            elif v7encoding != -1:
+                offset = v7encoding
+            else:
+                logger.info(f'Did not found sheetname properties in the schematic file '
+                            f'in {filename} line:{str(i)}')
+                raise LookupError(f'Did not found sheetname properties in the schematic file '
+                                  f'in {filename} line:{str(i)}. Unsupported schematics file format')
+            sheetname_loc = offset + start
+            sheetname_loc_end = next_bigger(new_lines, sheetname_loc)
+            sheetname_complete_string = contents[sheetname_loc:sheetname_loc_end]
+            sheetname = sheetname_complete_string.strip("(property").split('"')[1::2][1]
+
+            v8encoding = contents[start:end].find('(property "Sheetfile\"')
+            v7encoding = contents[start:end].find('(property "Sheet file\"')
+            if v8encoding != -1:
+                offset = v8encoding
+            elif v7encoding != -1:
+                offset = v7encoding
+            else:
+                logger.info(f'Did not found sheetfile properties in the schematic file '
+                            f'in {filename}.')
+                raise LookupError(f'Did not found sheetfile properties in the schematic file '
+                                  f'in {filename}. Unsupported schematics file format')
+            sheetfile_loc = offset + start
+            sheetfile_loc_end = next_bigger(new_lines, sheetfile_loc)
+            sheetfile_complete_string = contents[sheetfile_loc:sheetfile_loc_end]
+            sheetfile = sheetfile_complete_string.strip("(property").split('"')[1::2][1]
+
+            sheetfilepath = os.path.join(filename_dir, sheetfile)
+            dict_of_sheets[uuid] = [sheetname, sheetfile]
+
+            # test if newfound file can be opened
+            if not os.path.exists(sheetfilepath):
+                raise LookupError(f'File {sheetfilepath} does not exists. This is either due to error in parsing'
+                                  f' schematics files, missing schematics file or an error within the schematics')
+            # open a newfound file and look for nested sheets
+            self.parse_schematic_files(sheetfilepath, dict_of_sheets)
+            pass
         return
 
     def get_list_of_footprints_with_same_id(self, fp_id):
@@ -236,48 +273,40 @@ class Placer:
                 footprints_with_same_id.append(fp)
         return footprints_with_same_id
 
-    def get_sheets_to_replicate(self, reference_footprint, level):
+    def get_sheets_to_place(self, reference_footprint, level):
         sheet_id = reference_footprint.sheet_id
+        level_index = sheet_id.index(level)
+        sheet_depth = len(sheet_id)
+
         sheet_file = reference_footprint.filename
         # find level_id
         level_file = sheet_file[sheet_id.index(level)]
         logger.info('constructing a list of sheets suitable for replication on level:'
                     + repr(level) + ", file:" + repr(level_file))
 
-        # construct complete hierarchy path up to the level of reference footprint
-        sheet_id_up_to_level = []
-        for i in range(len(sheet_id)):
-            sheet_id_up_to_level.append(sheet_id[i])
-            if sheet_id[i] == level:
-                break
+        up_to_level_file = sheet_file[:level_index+1]
 
         # get all footprints with same ID
         footprints_with_same_id = self.get_list_of_footprints_with_same_id(reference_footprint.fp_id)
-        # if hierarchy is deeper, match only the sheets with same hierarchy from root to -1
-        sheets_on_same_level = []
 
-        # go through all the footprints
+        sheets_up_to_same_level = []
         for fp in footprints_with_same_id:
-            # if the footprint is on selected level, it's sheet is added to the list of sheets on this level
-            if level_file in fp.filename:
-                sheet_id_list = []
-                # create a hierarchy path only up to the level
-                for i in range(len(fp.filename)):
-                    sheet_id_list.append(fp.sheet_id[i])
-                    if fp.filename[i] == level_file:
-                        break
-                sheets_on_same_level.append(sheet_id_list)
+            # match only if the filepath matches and all but the level sheetnames match
+            if len(fp.sheet_id) == len(sheet_id):
+                fp_id_level = "/".join(fp.sheet_id[:level_index] + fp.sheet_id[level_index+1:])
+                ref_fp_id_level = "/".join(sheet_id[:level_index] + sheet_id[level_index+1:])
+                if fp.filename[:level_index+1] == up_to_level_file and fp_id_level == ref_fp_id_level:
+                    sheets_up_to_same_level.append(fp.sheet_id)
 
-        # remove duplicates
-        sheets_on_same_level.sort()
-        sheets_on_same_level = list(k for k, _ in itertools.groupby(sheets_on_same_level))
+        # sort
+        sheets_up_to_same_level.sort(key=lambda item: (len("".join(item)), item))
 
         # remove the sheet path for reference footprint
-        if sheet_id_up_to_level in sheets_on_same_level:
-            index = sheets_on_same_level.index(sheet_id_up_to_level)
-            del sheets_on_same_level[index]
-        logger.info("suitable sheets are:"+repr(sheets_on_same_level))
-        return sheets_on_same_level
+        if sheet_id in sheets_up_to_same_level:
+            index = sheets_up_to_same_level.index(sheet_id)
+            del sheets_up_to_same_level[index]
+        logger.info("suitable sheets are:"+repr(sheets_up_to_same_level))
+        return sheets_up_to_same_level
 
     def get_footprints_on_sheet(self, level):
         footprints_on_sheet = []
