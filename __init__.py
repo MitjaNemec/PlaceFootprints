@@ -22,7 +22,11 @@ except Exception as e:
         def defaults(self):
             self.name = "Place Footprints"
             self.category = "Place Footprints"
-            self.description = "Places selected footprints either by reference or by sheet in different configurations (linear, circular, matrix)"
+            self.description = "place selected footprints or footprints from multiple sheets " \
+                                "in linear, circular or matrix arrangement"
+            self.icon_file_name = os.path.join(os.path.dirname(__file__), 'place_footprints_light.png')
+            self.dark_icon_file_name = os.path.join(os.path.dirname(__file__), 'place_footprints_dark.png')
+            self.show_toolbar_button = True
 
         def Run(self):
             caption = self.name

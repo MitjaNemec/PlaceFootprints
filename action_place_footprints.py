@@ -355,10 +355,10 @@ class PlaceFootprints(pcbnew.ActionPlugin):
         self.category = "Place Footprints"
         self.description = "place selected footprints or footprints from multiple sheets " \
                            "in linear, circular or matrix arrangement"
-        self.icon_file_name = os.path.join(
-            os.path.dirname(__file__), 'place_footprints_light.png')
-        self.dark_icon_file_name = os.path.join(
-            os.path.dirname(__file__), 'place_footprints_dark.png')
+        
+        self.icon_file_name = os.path.join(os.path.dirname(__file__), 'place_footprints_light.png')
+        self.dark_icon_file_name = os.path.join(os.path.dirname(__file__), 'place_footprints_dark.png')
+        self.show_toolbar_button = True
 
         self.debug_level = logging.INFO
 
