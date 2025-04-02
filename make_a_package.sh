@@ -35,6 +35,7 @@ cp initial_dialog_GUI.py plugins
 cp place_by_reference_GUI.py plugins
 cp place_by_sheet_GUI.py plugins
 cp error_dialog_GUI.py plugins
+cp deprecation_dialog_GUI.py plugins
 cp place_footprints.py plugins
 cp version.txt plugins
 mkdir resources
