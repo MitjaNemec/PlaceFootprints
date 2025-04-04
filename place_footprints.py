@@ -498,8 +498,8 @@ class Placer:
         # check if both modules (source and the one for replication) have the same number of text items
         if len(src_fp_text_items) != len(dst_fp_text_items):
             raise LookupError(
-                "Source module: " + src_fp + " has different number of text items (" + repr(len(src_fp_text_items))
-                + ")\nthan module for replication: " + dst_fp.ref + " (" + repr(len(dst_fp_text_items)) + ")")
+                "Footprint: " + dst_fp.ref + " has different number of text items (" + repr(len(src_fp_text_items))
+                + ")\nthan selected footprint: " + src_fp.ref + " (" + repr(len(dst_fp_text_items)) + ")")
         # replicate each text item
         for src_text in src_fp_text_items:
             if src_text.IsKeepUpright() and angle != 0.0:
