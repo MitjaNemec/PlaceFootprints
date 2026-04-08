@@ -71,4 +71,7 @@ Example of placing the LEDs from a single sheet in a circular placement
 - There isn't currently an icon for this plugin on the toolbar for the PCB Editor. You need to access it from
   `Tools/External Plugins/Place Footprints`.
 
+**Author :** doc.dr. Mitja Nemec
+
+**Date :** 2022-2025
 
