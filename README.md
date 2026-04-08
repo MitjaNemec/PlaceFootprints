@@ -1,5 +1,5 @@
 
-# Place Footprints
+# KiCad Place Footprints plugin
 
 This plugin will place footprints with the following geometry:
 
