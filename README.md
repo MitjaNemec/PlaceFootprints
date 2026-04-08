@@ -73,5 +73,5 @@ Example of placing the LEDs from a single sheet in a circular placement
 
 **Author :** doc.dr. Mitja Nemec
 
-**Date :** 2022-2025
+**Date :** 2026
 
